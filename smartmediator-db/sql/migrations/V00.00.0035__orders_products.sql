@@ -1,0 +1,17 @@
+-- Orders_products table.
+
+CREATE TABLE orders_products
+(
+    id         BIGSERIAL,
+    order_id   BIGINT         NOT NULL,
+    product_id BIGINT         NOT NULL,
+    amount     decimal(15, 3) NOT NULL CHECK (amount > 0),
+    note       TEXT           NOT NULL DEFAULT '',
+    CONSTRAINT pk_orders_products PRIMARY KEY (id),
+    CONSTRAINT fk_orders_products_orders FOREIGN KEY (order_id) REFERENCES orders (id)
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_orders_products_products FOREIGN KEY (product_id) REFERENCES products (id)
+        ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+CREATE INDEX idx_orders_products_amount ON orders_products (amount);
