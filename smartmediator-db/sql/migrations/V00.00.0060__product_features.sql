@@ -6,7 +6,7 @@
 --     product_id BIGINT       NOT NULL,
 --     code       varchar(255) NOT NULL CHECK (length(code) > 0),
 --     name       varchar(255) NOT NULL CHECK (length(code) > 0),
---     note       TEXT         NOT NULL DEFAULT '',
+--     note       TEXT         NOT NULL DEFAULT ''
 --     CONSTRAINT pk_product_features_products PRIMARY KEY (id),
 --     CONSTRAINT fk_orders_products_products FOREIGN KEY (product_id) REFERENCES products (id)
 --         ON DELETE RESTRICT ON UPDATE RESTRICT
