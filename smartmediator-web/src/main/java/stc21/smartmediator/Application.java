@@ -1,4 +1,4 @@
-package stc21.smartmanager;
+package stc21.smartmediator;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,8 +15,6 @@ public class Application {
 
     @Bean
     CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
-            System.out.println("Hello from Smart Mediator.");
-        };
+        return args -> System.out.println("Hello from Smart Mediator.");
     }
 }
