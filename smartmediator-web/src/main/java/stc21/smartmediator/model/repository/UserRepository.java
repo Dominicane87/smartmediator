@@ -5,9 +5,10 @@ import stc21.smartmediator.model.entity.UsersEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<UsersEntity, Integer> {
+public interface UserRepository extends JpaRepository<UsersEntity, UUID> {
 
     // some custom queries
 

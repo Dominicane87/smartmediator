@@ -9,6 +9,7 @@ import stc21.smartmediator.model.entity.UsersEntity;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -28,8 +29,8 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public UsersEntity show(@PathVariable String id){
-        Integer Id = Integer.parseInt(id);
-        Optional<UsersEntity> ou = userRepository.findById(Id);
+        UUID uuid = UUID.fromString(id);
+        Optional<UsersEntity> ou = userRepository.findById(uuid);
         return ou.orElse(null);
     }
 
@@ -50,8 +51,8 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public UsersEntity update(@PathVariable String id, @RequestBody Map<String, String> body){
-        int blogId = Integer.parseInt(id);
-        UsersEntity user = userRepository.findById(blogId).orElse(null);
+        UUID uuid = UUID.fromString(id);
+        UsersEntity user = userRepository.findById(uuid).orElse(null);
         if(user == null) {
             return null;
         }
@@ -63,8 +64,8 @@ public class UserController {
 
     @DeleteMapping("user/{id}")
     public boolean delete(@PathVariable String id){
-        int blogId = Integer.parseInt(id);
-        userRepository.deleteById(blogId);
+        UUID uuid = UUID.fromString(id);
+        userRepository.deleteById(uuid);
         return true;
     }
 }
