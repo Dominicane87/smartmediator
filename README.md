@@ -14,6 +14,12 @@ POST http://localhost:8080/user
 request body: {"email": "user_email", "password_hash": "user_password_hash", "full_name": "user_name"}
 
 Edit user: PUT http://localhost:8080/user/{id}
-request body: {"email": "new_user_email", "password_hash": "new_user_password_hash", "full_name": "new_user_name"}
+request body (unchanged fields can be omitted): 
+{
+    "email": "new_user_email", 
+    "password_hash": "new_user_password_hash", 
+    "full_name": "new_user_name", 
+    "status": "new_status"
+}
 
 Delete user: DELETE http://localhost:8080/user/{id}

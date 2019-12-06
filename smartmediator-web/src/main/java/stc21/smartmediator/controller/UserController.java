@@ -72,11 +72,31 @@ public class UserController {
         UUID uuid = UUID.fromString(id);
         UsersEntity user = userRepository.findById(uuid).orElse(null);
         if(user == null) {
-            return null;
+            throw new IllegalStateException("User with id = " + id + " not found.");
         }
-        user.setEmail(body.get("email"));
-        user.setPasswordHash(body.get("password_hash"));
-        user.setFullName(body.get("full_name"));
+
+        String email = body.get("email");
+        if(email != null) {
+            user.setEmail(email);
+        }
+
+        String password = body.get("password_hash");
+        if(password != null) {
+            user.setPasswordHash(password);
+        }
+
+        String name = body.get("full_name");
+        if(name != null) {
+            user.setFullName(name);
+        }
+
+        String status = body.get("status");
+        if(status != null) {
+            UserStatusesEntity s = userStatusesRepository.findByCode(status);
+            if(s != null) {
+                user.setStatus(s.getId());
+            }
+        }
         return userRepository.save(user);
     }
 
