@@ -33,22 +33,22 @@ public class UserController {
         return ou.orElse(null);
     }
 
-    @PostMapping("/blog/search")
+    @PostMapping("/user/search")
     public List<UsersEntity> search(@RequestBody String email){
 
         return userRepository.searchByEmail(email);
     }
 
-//    @PostMapping("/blog")
-//    public UsersEntity create(@RequestBody Map<String, String> body){
-//        String email = body.get("email");
-//        String password_hash = body.get("password_hash");
-//        String full_name = body.get("full_name");
-//        return userRepository.save(
-//                new UsersEntity(email, password_hash, full_name));
-//    }
+    @PostMapping("/user")
+    public UsersEntity create(@RequestBody Map<String, String> body){
+        String email = body.get("email");
+        String password_hash = body.get("password_hash");
+        String full_name = body.get("full_name");
+        return userRepository.save(
+                new UsersEntity(email, password_hash, full_name));
+    }
 
-    @PutMapping("/blog/{id}")
+    @PutMapping("/user/{id}")
     public UsersEntity update(@PathVariable String id, @RequestBody Map<String, String> body){
         int blogId = Integer.parseInt(id);
         UsersEntity user = userRepository.findById(blogId).orElse(null);
@@ -61,7 +61,7 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @DeleteMapping("blog/{id}")
+    @DeleteMapping("user/{id}")
     public boolean delete(@PathVariable String id){
         int blogId = Integer.parseInt(id);
         userRepository.deleteById(blogId);

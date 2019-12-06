@@ -12,6 +12,16 @@ public class UsersEntity {
     private String passwordHash;
     private String fullName;
 
+    public UsersEntity(String email, String password_hash, String full_name) {
+        this.email = email;
+        this.passwordHash = password_hash;
+        this.fullName = full_name;
+    }
+
+    public UsersEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
     public UUID getId() {
