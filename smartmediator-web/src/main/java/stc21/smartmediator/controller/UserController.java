@@ -1,11 +1,17 @@
 package stc21.smartmediator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.*;
 
+import stc21.smartmediator.model.entity.RolesEntity;
+import stc21.smartmediator.model.entity.UserStatusesEntity;
+import stc21.smartmediator.model.repository.RolesRepository;
 import stc21.smartmediator.model.repository.UserRepository;
 import stc21.smartmediator.model.entity.UsersEntity;
+import stc21.smartmediator.model.repository.UserStatusesRepository;
 
+import javax.management.relation.RoleList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,10 +21,16 @@ import java.util.UUID;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final RolesRepository rolesRepository;
+    private final UserStatusesRepository userStatusesRepository;
 
     @Autowired
-    UserController(UserRepository repository) {
+    UserController(UserRepository repository,
+                   RolesRepository rolesRepository,
+                   UserStatusesRepository userStatusesRepository) {
         this.userRepository = repository;
+        this.rolesRepository = rolesRepository;
+        this.userStatusesRepository = userStatusesRepository;
     }
 
     @GetMapping("/user")
@@ -45,8 +57,18 @@ public class UserController {
         String email = body.get("email");
         String password_hash = body.get("password_hash");
         String full_name = body.get("full_name");
-        return userRepository.save(
-                new UsersEntity(email, password_hash, full_name));
+        List<RolesEntity> roles = rolesRepository.findAll();
+        Optional<RolesEntity> r = roles.stream().filter(x -> x.getCode().equals("user")).findFirst();
+        List<UserStatusesEntity> statuses = userStatusesRepository.findAll();
+        Optional<UserStatusesEntity> us = statuses.stream().filter(x -> x.getCode().equals("new")).findFirst();
+        if(r.isPresent() && us.isPresent()) {
+            UUID role_id = r.get().getId();
+            UUID status_id = us.get().getId();
+            return userRepository.save(
+                    new UsersEntity(email, password_hash, full_name, role_id, status_id));
+        } else {
+            return null;
+        }
     }
 
     @PutMapping("/user/{id}")
