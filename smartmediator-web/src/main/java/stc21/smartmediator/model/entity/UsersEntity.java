@@ -2,43 +2,28 @@ package stc21.smartmediator.model.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
-@Table(name = "users")
-public class User {
-
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(generator = "USER_ID_GENERATOR", strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "USER_ID_GENERATOR", allocationSize = 1, sequenceName = "users_id_seq")
-    private Long id;
-
-    @Column(name = "email", nullable = false, unique = true)
+@Table(name = "users", schema = "public", catalog = "postgres")
+public class UsersEntity {
+    private UUID id;
     private String email;
-
-    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
-
-    @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    public User() {
-    }
-
-    public User(String email, String passwordHash, String fullName) {
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.fullName = fullName;
-    }
-
-    public Long getId() {
+    @Id
+    @Column(name = "id")
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -47,6 +32,8 @@ public class User {
         this.email = email;
     }
 
+    @Basic
+    @Column(name = "password_hash")
     public String getPasswordHash() {
         return passwordHash;
     }
@@ -55,6 +42,8 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
+    @Basic
+    @Column(name = "full_name")
     public String getFullName() {
         return fullName;
     }
@@ -67,12 +56,15 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        UsersEntity that = (UsersEntity) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(passwordHash, that.passwordHash) &&
+                Objects.equals(fullName, that.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, email, passwordHash, fullName);
     }
 }

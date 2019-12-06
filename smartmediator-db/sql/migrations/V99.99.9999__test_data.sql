@@ -1,65 +1,66 @@
 -- Test data.
 
--- INSERT INTO organizations (full_name, type_org)
--- VALUES ('Продавец_1', 'seller'),
---        ('Продавец_2', 'seller'),
---        ('Продавец_3', 'seller'),
---        ('Продавец_4', 'seller'),
---        ('Покупатель_1', 'buyer'),
---        ('Покупатель_2', 'buyer'),
---        ('Покупатель_3', 'buyer'),
---        ('Покупатель_4', 'buyer');
---
--- INSERT INTO users (email, password_hash, full_name, role, organization_id)
--- VALUES ('user1@mail.ru', 'password_hash_1', 'Юзеров1 Юзер1 Юзерович1', 'admin', null),
---        ('user2@mail.ru', 'password_hash_2', 'Юзеров2 Юзер2 Юзерович2', 'user', 1),
---        ('user3@mail.ru', 'password_hash_2', 'Юзеров2 Юзер2 Юзерович2', 'user', 2),
---        ('user4@mail.ru', 'password_hash_3', 'Юзеров3 Юзер3 Юзерович3', 'user', 3);
+INSERT INTO org_statuses ("code", "name")
+VALUES ('new', 'Новая'),
+       ('wait', 'Ожидает'),
+       ('confirm', 'Подтверждена'),
+       ('ban', 'Забанена');
 
--- INSERT INTO users_links (hater_id, hatee_id)
--- VALUES (1, 2),
---        (1, 3),
---        (1, 4),
---        (1, 5),
---        (1, 6),
---        (2, 3),
---        (2, 4),
---        (2, 5),
---        (2, 6),
---        (3, 4),
---        (3, 5),
---        (3, 6),
---        (4, 5),
---        (4, 6),
---        (5, 6),
---        (6, 5),
---        (5, 4),
---        (4, 3),
---        (3, 2),
---        (2, 1);
---
--- INSERT INTO posts (user_id, content, publication_date)
--- VALUES (1, 'I hate all!!!111', current_timestamp),
---        (2, 'I hate all!!!222', current_timestamp),
---        (3, 'I hate all!!!333', current_timestamp),
---        (4, 'I hate all!!!444', current_timestamp),
---        (5, 'I hate all!!!555', current_timestamp),
---        (1, 'I hate user 2!!!', current_timestamp),
---        (1, 'I hate user 3!!!', current_timestamp),
---        (1, 'I hate user 4!!!', current_timestamp),
---        (1, 'I hate user 5!!!', current_timestamp),
---        (1, 'I hate user 6!!!', current_timestamp);
---
--- INSERT INTO messages (sender_id, receiver_id, content, publication_date)
--- VALUES (2, 1, 'I hate you!!!', current_timestamp),
---        (3, 1, 'I hate you!!!', current_timestamp),
---        (4, 1, 'I hate you!!!', current_timestamp),
---        (5, 1, 'I hate you!!!', current_timestamp),
---        (6, 1, 'I hate you!!!', current_timestamp);
---
--- INSERT INTO dislikes (user_id, post_id, publication_date)
--- VALUES (2, 1, current_timestamp),
---        (3, 1, current_timestamp),
---        (4, 1, current_timestamp),
---        (5, 1, current_timestamp),
---        (6, 1, current_timestamp);
+INSERT INTO user_statuses ("code", "name")
+VALUES ('new', 'Новая'),
+       ('wait', 'Ожидает'),
+       ('confirm', 'Подтверждена'),
+       ('ban', 'Забанена');
+
+INSERT INTO roles ("code", "name")
+VALUES ('user', 'Пользователь'),
+       ('admin', 'Администратор');
+
+INSERT INTO order_statuses ("code", "name")
+VALUES ('draft', 'Черновик'),
+       ('new', 'Новый'),
+       ('cancel', 'Отменен'),
+       ('taken', 'Подтвержден'),
+       ('shipped', 'Отправлен'),
+       ('delivered', 'Доставлен'),
+       ('lost', 'Потерян');
+
+INSERT INTO bids_statuses ("code", "name")
+VALUES ('new', 'Новая'),
+       ('confirmed', 'Подтверждена'),
+       ('denied', 'Отклонена'),
+       ('refresh', 'Обновлена');
+
+INSERT INTO delivery_types ("code", "name")
+VALUES ('pickup', 'Самовывоз'),
+       ('supply', 'Доставка');
+
+INSERT INTO public.users(
+    id, email, password_hash, full_name, status, role)
+VALUES (
+           '0848bc4f-b8df-4e73-9551-e3e168fee181',
+           'email1@mail.ru',
+           'password1',
+           'name1',
+           (select id from user_statuses where code = 'new'),
+           (select id from roles where code = 'user'));
+
+INSERT INTO public.users(
+    id, email, password_hash, full_name, status, role)
+VALUES (
+           '0848bc4f-b8df-4e73-9551-e3e168fee182',
+           'email2@mail.ru',
+           'password2',
+           'name2',
+           (select id from user_statuses where code = 'new'),
+           (select id from roles where code = 'user'));
+
+INSERT INTO public.users(
+    id, email, password_hash, full_name, status, role)
+VALUES (
+           '0848bc4f-b8df-4e73-9551-e3e168fee183',
+           'email3@mail.ru',
+           'password3',
+           'name3',
+           (select id from user_statuses where code = 'new'),
+           (select id from roles where code = 'user'));

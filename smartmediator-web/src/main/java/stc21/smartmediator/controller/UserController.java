@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import stc21.smartmediator.model.repository.UserRepository;
-import stc21.smartmediator.model.entity.User;
+import stc21.smartmediator.model.entity.UsersEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -21,36 +21,37 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public List<User> index(){
+    public List<UsersEntity> index(){
 
         return userRepository.findAll();
     }
 
     @GetMapping("/user/{id}")
-    public User show(@PathVariable String id){
+    public UsersEntity show(@PathVariable String id){
         Integer Id = Integer.parseInt(id);
-        Optional<User> ou = userRepository.findById(Id);
+        Optional<UsersEntity> ou = userRepository.findById(Id);
         return ou.orElse(null);
     }
 
     @PostMapping("/blog/search")
-    public List<User> search(@RequestBody String email){
+    public List<UsersEntity> search(@RequestBody String email){
 
         return userRepository.searchByEmail(email);
     }
 
-    @PostMapping("/blog")
-    public User create(@RequestBody Map<String, String> body){
-        String email = body.get("email");
-        String password_hash = body.get("password_hash");
-        String full_name = body.get("full_name");
-        return userRepository.save(new User(email, password_hash, full_name));
-    }
+//    @PostMapping("/blog")
+//    public UsersEntity create(@RequestBody Map<String, String> body){
+//        String email = body.get("email");
+//        String password_hash = body.get("password_hash");
+//        String full_name = body.get("full_name");
+//        return userRepository.save(
+//                new UsersEntity(email, password_hash, full_name));
+//    }
 
     @PutMapping("/blog/{id}")
-    public User update(@PathVariable String id, @RequestBody Map<String, String> body){
+    public UsersEntity update(@PathVariable String id, @RequestBody Map<String, String> body){
         int blogId = Integer.parseInt(id);
-        User user = userRepository.findById(blogId).orElse(null);
+        UsersEntity user = userRepository.findById(blogId).orElse(null);
         if(user == null) {
             return null;
         }

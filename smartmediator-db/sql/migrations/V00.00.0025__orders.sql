@@ -2,16 +2,16 @@
 
 CREATE TABLE orders
 (
-    id               BIGSERIAL,
-    status           BIGINT NOT NULL,
-    buyer_id         BIGINT NOT NULL,
-    seller_id        BIGINT NOT NULL,
-    delivery         BIGINT NOT NULL,
-    price_pattern_id BIGINT NOT NULL,
-    get_from         BIGINT NOT NULL,
-    set_to           BIGINT NULL,
-    note             TEXT   NOT NULL DEFAULT '',
-    CONSTRAINT pk_orders PRIMARY KEY (id),
+    id               UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v1mc(),
+    status           uuid NOT NULL,
+    buyer_id         UUID NOT NULL,
+    seller_id        UUID NOT NULL,
+    delivery         UUID NOT NULL,
+    price_pattern_id UUID NOT NULL,
+    get_from         UUID NOT NULL,
+    set_to           UUID NULL,
+    note             TEXT NOT NULL             DEFAULT '',
+    CONSTRAINT pk_orders UNIQUE (id),
     CONSTRAINT fk_orders_status FOREIGN KEY (status) REFERENCES order_statuses (id)
         ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_orders_buyers FOREIGN KEY (buyer_id) REFERENCES buyers (id)

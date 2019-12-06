@@ -2,12 +2,12 @@
 
 CREATE TABLE orders_products
 (
-    id         BIGSERIAL,
-    order_id   BIGINT         NOT NULL,
-    product_id BIGINT         NOT NULL,
+    id         UUID           NOT NULL PRIMARY KEY DEFAULT uuid_generate_v1mc(),
+    order_id   UUID           NOT NULL,
+    product_id UUID           NOT NULL,
     amount     decimal(15, 3) NOT NULL CHECK (amount > 0),
-    note       TEXT           NOT NULL DEFAULT '',
-    CONSTRAINT pk_orders_products PRIMARY KEY (id),
+    note       TEXT           NOT NULL             DEFAULT '',
+    CONSTRAINT pk_orders_products UNIQUE (id),
     CONSTRAINT fk_orders_products_orders FOREIGN KEY (order_id) REFERENCES orders (id)
         ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_orders_products_products FOREIGN KEY (product_id) REFERENCES products (id)
