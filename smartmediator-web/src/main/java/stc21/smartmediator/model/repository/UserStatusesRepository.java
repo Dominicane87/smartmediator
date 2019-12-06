@@ -15,4 +15,6 @@ public interface UserStatusesRepository extends JpaRepository<UserStatusesEntity
     default List<UserStatusesEntity> search(String query) {
         return null;
     }
+
+    UserStatusesEntity findByCode(String code);
 }

@@ -57,15 +57,11 @@ public class UserController {
         String email = body.get("email");
         String password_hash = body.get("password_hash");
         String full_name = body.get("full_name");
-        List<RolesEntity> roles = rolesRepository.findAll();
-        Optional<RolesEntity> r = roles.stream().filter(x -> x.getCode().equals("user")).findFirst();
-        List<UserStatusesEntity> statuses = userStatusesRepository.findAll();
-        Optional<UserStatusesEntity> us = statuses.stream().filter(x -> x.getCode().equals("new")).findFirst();
-        if(r.isPresent() && us.isPresent()) {
-            UUID role_id = r.get().getId();
-            UUID status_id = us.get().getId();
+        RolesEntity r = rolesRepository.findByCode("user");
+        UserStatusesEntity us = userStatusesRepository.findByCode("new");
+        if(r != null && us != null) {
             return userRepository.save(
-                    new UsersEntity(email, password_hash, full_name, role_id, status_id));
+                    new UsersEntity(email, password_hash, full_name, r.getId(), us.getId()));
         } else {
             return null;
         }
