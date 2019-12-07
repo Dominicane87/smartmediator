@@ -1,17 +1,13 @@
 package stc21.smartmediator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.*;
 
 import stc21.smartmediator.model.entity.RolesEntity;
 import stc21.smartmediator.model.entity.UserStatusesEntity;
-import stc21.smartmediator.model.repository.RolesRepository;
-import stc21.smartmediator.model.repository.UserRepository;
+import stc21.smartmediator.model.repository.*;
 import stc21.smartmediator.model.entity.UsersEntity;
-import stc21.smartmediator.model.repository.UserStatusesRepository;
 
-import javax.management.relation.RoleList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,36 +16,41 @@ import java.util.UUID;
 @RestController
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
     private final UserStatusesRepository userStatusesRepository;
+    private final UsersOrganizationsRepository usersOrgRepository;
 
     @Autowired
-    UserController(UserRepository repository,
+    UserController(UsersRepository repository,
                    RolesRepository rolesRepository,
-                   UserStatusesRepository userStatusesRepository) {
-        this.userRepository = repository;
+                   UserStatusesRepository userStatusesRepository,
+                   UsersOrganizationsRepository usersOrgRepository) {
+        this.usersRepository = repository;
         this.rolesRepository = rolesRepository;
         this.userStatusesRepository = userStatusesRepository;
+        this.usersOrgRepository = usersOrgRepository;
     }
 
     @GetMapping("/user")
-    public List<UsersEntity> index(){
+    public Iterable<UsersEntity> index(){
 
-        return userRepository.findAll();
+        return usersRepository.findAll();
     }
 
     @GetMapping("/user/{id}")
     public UsersEntity show(@PathVariable String id){
         UUID uuid = UUID.fromString(id);
-        Optional<UsersEntity> ou = userRepository.findById(uuid);
+        Optional<UsersEntity> ou = usersRepository.findById(uuid);
         return ou.orElse(null);
     }
 
     @PostMapping("/user/search")
     public List<UsersEntity> search(@RequestBody String email){
 
-        return userRepository.searchByEmail(email);
+        //return userRepository.searchByEmail(email);
+        return null;
+
     }
 
     @PostMapping("/user")
@@ -60,7 +61,7 @@ public class UserController {
         RolesEntity r = rolesRepository.findByCode("user");
         UserStatusesEntity us = userStatusesRepository.findByCode("new");
         if(r != null && us != null) {
-            return userRepository.save(
+            return usersRepository.save(
                     new UsersEntity(email, password_hash, full_name, r.getId(), us.getId()));
         } else {
             return null;
@@ -70,7 +71,7 @@ public class UserController {
     @PutMapping("/user/{id}")
     public UsersEntity update(@PathVariable String id, @RequestBody Map<String, String> body){
         UUID uuid = UUID.fromString(id);
-        UsersEntity user = userRepository.findById(uuid).orElse(null);
+        UsersEntity user = usersRepository.findById(uuid).orElse(null);
         if(user == null) {
             throw new IllegalStateException("User with id = " + id + " not found.");
         }
@@ -97,13 +98,14 @@ public class UserController {
                 user.setStatus(s.getId());
             }
         }
-        return userRepository.save(user);
+        return usersRepository.save(user);
     }
 
     @DeleteMapping("user/{id}")
     public boolean delete(@PathVariable String id){
         UUID uuid = UUID.fromString(id);
-        userRepository.deleteById(uuid);
+        //userRepository.deleteById(uuid);
+        usersRepository.delete(uuid, usersOrgRepository);
         return true;
     }
 }

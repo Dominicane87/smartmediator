@@ -64,3 +64,23 @@ VALUES (
            'name3',
            (select id from user_statuses where code = 'new'),
            (select id from roles where code = 'user'));
+
+INSERT INTO public.organizations(
+    id, full_name, name, inn, status, address)
+VALUES (
+           '1848bc4f-b8df-4e73-9551-e3e168fee181',
+           'OOO Мясо-молочный комбинат им. Артамонова',
+           'ММК',
+           '111-222-333-444',
+           (select id from org_statuses where code = 'new'),
+           '420500, г. Казань, ул. Загородная, д. 12');
+
+INSERT INTO public.organizations(
+    id, full_name, name, inn, status, address)
+VALUES (
+           '1848bc4f-b8df-4e73-9551-e3e168fee182',
+           'ЗАО Мебельная фабрика "Эврика"',
+           'Эврика',
+           '111-222-333-445',
+           (select id from org_statuses where code = 'new'),
+           '420500, г. Казань, ул. Мебельная, д. 47');
