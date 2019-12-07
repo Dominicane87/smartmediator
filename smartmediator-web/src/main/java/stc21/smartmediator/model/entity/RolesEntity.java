@@ -1,18 +1,24 @@
 package stc21.smartmediator.model.entity;
 
 import javax.persistence.*;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "roles", schema = "public", catalog = "postgres")
 public class RolesEntity {
-    private UUID id;
-    private String code;
-    private String name;
 
     @Id
     @Column(name = "id")
+    private UUID id;
+
+    @Basic
+    @Column(name = "code")
+    private String code;
+
+    @Basic
+    @Column(name = "name")
+    private String name;
+
     public UUID getId() {
         return id;
     }
@@ -21,8 +27,6 @@ public class RolesEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "code")
     public String getCode() {
         return code;
     }
@@ -31,8 +35,6 @@ public class RolesEntity {
         this.code = code;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }

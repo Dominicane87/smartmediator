@@ -1,5 +1,7 @@
 package stc21.smartmediator.model.entity;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -7,14 +9,35 @@ import java.util.UUID;
 @Entity
 @Table(name = "users", schema = "public", catalog = "postgres")
 public class UsersEntity {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @Basic
+    @Column(name = "email")
     private String email;
+
+    @Basic
+    @Column(name = "password_hash")
     private String passwordHash;
+
+    @Basic
+    @Column(name = "full_name")
     private String fullName;
+
+    @Column(name = "role")
     private UUID role;
+
+    @Column(name = "status")
     private UUID status;
 
-    public UsersEntity(String email, String password_hash, String full_name, UUID role_id, UUID status_id) {
+    public UsersEntity(String email,
+                       String password_hash,
+                       String full_name,
+                       UUID role_id,
+                       UUID status_id) {
         this.email = email;
         this.passwordHash = password_hash;
         this.fullName = full_name;
@@ -26,9 +49,6 @@ public class UsersEntity {
 
     }
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }
@@ -37,8 +57,6 @@ public class UsersEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -47,35 +65,32 @@ public class UsersEntity {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "password_hash")
     public String getPasswordHash() {
         return passwordHash;
     }
 
-    @Column(name = "role")
-    public UUID getRole() {
-        return role;
-    }
-
-    public void setRole(UUID value) { role = value; }
-
-    @Column(name = "status")
     public UUID getStatus() {
         return status;
     }
 
-    public void setStatus(UUID value) { status = value; }
-
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setStatus(UUID value) {
+        status = value;
     }
 
-    @Basic
-    @Column(name = "full_name")
+    public void setPasswordHash(String password) {
+        this.passwordHash = DigestUtils.md5Hex(password);
+    }
+
     public String getFullName() {
         return fullName;
+    }
+
+    public UUID getRole() {
+        return role;
+    }
+
+    public void setRole(UUID role) {
+        this.role = role;
     }
 
     public void setFullName(String fullName) {
