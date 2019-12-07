@@ -1,11 +1,10 @@
-package stc21.smartmediator.controller;
+package stc21.smartmediator.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import stc21.smartmediator.model.entity.*;
 import stc21.smartmediator.model.repository.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
