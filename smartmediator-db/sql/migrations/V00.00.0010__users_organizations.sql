@@ -2,12 +2,12 @@
 
 CREATE TABLE users_organizations
 (
-    id              BIGSERIAL,
-    user_id         BIGINT NOT NULL,
-    organization_id BIGINT NOT NULL,
-    CONSTRAINT pk_users_organizations PRIMARY KEY (id),
+    id      UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v1mc(),
+    user_id UUID NOT NULL,
+    org_id  UUID NOT NULL,
+    CONSTRAINT pk_users_organizations UNIQUE (id),
     CONSTRAINT fk_users_organizations_users FOREIGN KEY (user_id) REFERENCES users (id)
         ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT fk_users_organizations_organizations FOREIGN KEY (organization_id) REFERENCES organizations (id)
+    CONSTRAINT fk_users_organizations_organizations FOREIGN KEY (org_id) REFERENCES organizations (id)
         ON DELETE RESTRICT ON UPDATE RESTRICT
 );
