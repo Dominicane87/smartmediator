@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import stc21.smartmediator.controller.UserController;
-import stc21.smartmediator.model.repository.UserRepository;
+import stc21.smartmediator.model.repository.UsersRepository;
 
 import java.util.UUID;
 
@@ -28,7 +27,7 @@ public class UserControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    private UserRepository repository;
+    private UsersRepository repository;
 
 
     @Test
