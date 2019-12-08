@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface UserStatusesRepository extends JpaRepository<UserStatusesEntity, UUID> {
 
     UserStatusesEntity findByCode(String code);
+
 }
