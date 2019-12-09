@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li><a href="#">Заказы</a></li>
+                <li><a href="#">Заявки</a></li>
+                <li><a href="#">История</a></li>
+                <li><a href="#">Данные</a></li>
+            </ul>
+        </div>
+
+        <h2>Заявки</h2>
+        <div class="inline">
+            <select>
+                <option disabled selected>Поставщик</option>
+                <option value="Бахетле">Бахетле</option>
+                <option value="Магнит">Магнит</option>
+            </select>
+            <select>
+                <option disabled selected>Адрес доставки</option>
+                <option value="Бахетле">Бахетле</option>
+                <option value="Магнит">Магнит</option>
+            </select>
+
+            <form th:action="@{/sendRequest}" method="get" >
+                <button type="button">Отправить заявку</button>
+            </form>
+
+        </div>
+
+
+        <h2>Действующие поставщики</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Поставщик</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td>Ania</td>
+            </tr>
+            <tr >
+                <td>Doe</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>

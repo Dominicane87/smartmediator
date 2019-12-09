@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<form th:action="@{/editUser}" method="post" >
+    <div class="container">
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li><a href="#">Пользователи</a></li>
+                <li><a href="#">Заказы</a></li>
+            </ul>
+        </div>
+        <table id="MyTable" class="table">
+            <thead>
+            <tr>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Логин</td>
+                <td><input th:name="login" type="text" placeholder="Заполнить поле"></td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td><input type="email" placeholder="Заполнить поле"></td>
+            </tr>
+            <tr>
+                <td>Название организации</td>
+                <td><input th:name="organisation" type="text" placeholder="Заполнить поле"></td>
+            </tr>
+            <tr>
+                <td>ИНН</td>
+                <td><input th:name="inn"  type="text" placeholder="Заполнить поле"></td>
+            </tr>
+            <tr>
+                <td>Адрес доставки</td>
+                <td><input th:name="address" type="text" placeholder="Заполнить поле"></td>
+            </tr>
+            <tr>
+                <td>Тип организации</td>
+                <td><select th:name="type" class="form-control">
+                    <option>Покупатель</option>
+                    <option>Продавец</option>
+                </select></td>
+            </tr>
+
+            </tbody>
+        </table>
+        <button type="submit">Сохранить изменения</button>
+    </div>
+</form>
+
+</body>
+
+</html>
