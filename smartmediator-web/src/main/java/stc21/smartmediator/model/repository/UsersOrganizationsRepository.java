@@ -10,7 +10,7 @@ import java.util.UUID;
 @Repository
 public interface UsersOrganizationsRepository extends JpaRepository<UsersOrganizationsEntity, UUID> {
 
-    boolean deleteAllByUserId(UUID user_id);
+//    boolean deleteAllByUserId(UUID user_id);
 
-    Iterable<UsersOrganizationsEntity> findAllByUserId(UUID user_id);
+//    Iterable<UsersOrganizationsEntity> findAllByUserId(UUID user_id);
 }

@@ -15,52 +15,50 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UsersRepository repository;
-    @Autowired
     private RolesRepository rolesRepository;
-    @Autowired
     private UserStatusesRepository userStatusesRepository;
 
+    @Autowired
     public UserServiceImpl(UsersRepository repository) {
         this.repository = repository;
         this.rolesRepository = rolesRepository;
         this.userStatusesRepository = userStatusesRepository;
     }
 
-    @Override
-    public List<UsersEntity> findAll() {
-        return repository.findAll();
-    }
+//    @Override
+//    public List<UsersEntity> findAll() {
+//        return repository.findAll();
+//    }
 
-    @Override
-    public UsersEntity findById(String id) {
-        Optional<UsersEntity> usersEntityOptional = repository.findById(UUID.fromString(id));
+//    @Override
+//    public UsersEntity findById(String id) {
+//        Optional<UsersEntity> usersEntityOptional = repository.findById(UUID.fromString(id));
+//
+//        return usersEntityOptional.orElse(null);
+//    }
 
-        return usersEntityOptional.orElse(null);
-    }
+//    @Override
+//    public UsersEntity searchByEmail(String email) {
+//        Optional<UsersEntity> usersEntityOptional = repository.findByEmail(email);
+//
+//        return usersEntityOptional.orElse(null);
+//    }
 
-    @Override
-    public UsersEntity searchByEmail(String email) {
-        Optional<UsersEntity> usersEntityOptional = repository.findByEmail(email);
-
-        return usersEntityOptional.orElse(null);
-    }
-
-    @Override
-    public UsersEntity create(String email, String pass, String full_name) {
-        UsersEntity template = new UsersEntity();
-        template.setEmail(email);
-        template.setPasswordHash(pass);
-        template.setFullName(full_name);
+//    @Override
+//    public UsersEntity create(String email, String pass, String full_name) {
+//        UsersEntity template = new UsersEntity();
+//        template.setEmail(email);
+//        template.setPasswordHash(pass);
+//        template.setFullName(full_name);
 //        template.setStatus(userStatusesRepository.findByCode("new").getId());
 //        template.setRole(rolesRepository.findByCode("user").getId());
 //
 //        return repository.save(new UsersEntity());
 
-        return null;
-    }
-}
+//        return null;
+//    }
+//}
 
 //    @Override
 //    public Optional<UsersEntity> create(Map<String, String> params) {
@@ -78,4 +76,4 @@ public class UserServiceImpl implements UserService {
 //        }
 //
 //        return Optional.empty();
-//    }
+    }

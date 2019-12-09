@@ -17,8 +17,8 @@ public class RoleServiceImpl implements RolesService {
         this.repository = repository;
     }
 
-    @Override
-    public List<RolesEntity> findByCode(String code) {
-        return (List<RolesEntity>) repository.findByCode(code);
-    }
+//    @Override
+//    public List<RolesEntity> findByCode(String code) {
+//        return (List<RolesEntity>) repository.findByCode(code);
+//    }
 }

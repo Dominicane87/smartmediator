@@ -13,14 +13,10 @@ import java.util.UUID;
 
 @Repository
 public interface UsersRepository extends JpaRepository<UsersEntity, UUID> {
-    List<UsersEntity> searchByEmail(String email);
+//    List<UsersEntity> searchByEmail(String email);
 
-    Optional<UsersEntity> findByEmail(String email);
+//    Optional<UsersEntity> findByEmail(String email);
 
-    void delete(UUID id, UsersOrganizationsRepository usersOrgRepository);
-
-    UsersEntity save(UsersEntity user,
-                     Iterable<UUID> orgIds,
-                     UsersOrganizationsRepository usersOrgRepository);
+//    void delete(UUID id, UsersOrganizationsRepository usersOrgRepository);
 
 }
