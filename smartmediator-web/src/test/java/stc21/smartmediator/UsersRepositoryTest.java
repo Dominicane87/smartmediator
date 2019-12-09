@@ -1,5 +1,6 @@
 package stc21.smartmediator;
 
+import org.hibernate.Session;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,14 @@ public class UsersRepositoryTest {
         });
 
         assertEquals(orgIds.size(), count.get());
+
+        repository.delete(user_id, userOrgRepository);
+
+        Iterable<UsersOrganizationsEntity> uo = userOrgRepository.findAllByUserId(user_id);
+        assertFalse(uo.iterator().hasNext());
+
+        Optional<UsersEntity> empty_user = repository.findById(user_id);
+        assertFalse(empty_user.isPresent());
     }
 
     @Test

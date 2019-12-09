@@ -1,43 +1,34 @@
 package stc21.smartmediator.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users_organizations", schema = "public", catalog = "postgres")
-public class UsersOrganizationsEntity {
+@Table(name = "sellers", schema = "public", catalog = "postgres")
+public class SellersEntity {
     private UUID id;
-    private UUID userId;
     private UUID orgId;
 
-    public UsersOrganizationsEntity(UUID userId, UUID orgId) {
-        this.userId = userId;
+    public SellersEntity(UUID orgId) {
         this.orgId = orgId;
     }
 
-    public UsersOrganizationsEntity() {
+    public SellersEntity() {
 
     }
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }
 
-    private void setId(UUID id) {
+    public void setId(UUID id) {
         this.id = id;
-    }
-
-    @Column(name = "user_id")
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID id) {
-        this.userId = id;
     }
 
     @Column(name = "org_id")
@@ -53,7 +44,7 @@ public class UsersOrganizationsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsersOrganizationsEntity that = (UsersOrganizationsEntity) o;
+        SellersEntity that = (SellersEntity) o;
         return Objects.equals(id, that.id);
     }
 

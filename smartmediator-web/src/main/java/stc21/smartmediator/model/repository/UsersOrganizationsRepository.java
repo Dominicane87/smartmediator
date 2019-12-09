@@ -9,7 +9,9 @@ import java.util.UUID;
 @Repository
 public interface UsersOrganizationsRepository extends CrudRepository<UsersOrganizationsEntity, UUID> {
 
-    boolean deleteAllByUserId(UUID user_id);
+    int deleteAllByUserId(UUID userId);
+
+    int deleteAllByOrgId(UUID orgId);
 
     Iterable<UsersOrganizationsEntity> findAllByUserId(UUID user_id);
 }

@@ -1,6 +1,7 @@
 package stc21.smartmediator.model.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -53,6 +54,10 @@ public class UsersEntity {
         return passwordHash;
     }
 
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
     @Column(name = "role")
     public UUID getRole() {
         return role;
@@ -66,11 +71,6 @@ public class UsersEntity {
     }
 
     public void setStatus(UUID value) { status = value; }
-
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
 
     @Basic
     @Column(name = "full_name")

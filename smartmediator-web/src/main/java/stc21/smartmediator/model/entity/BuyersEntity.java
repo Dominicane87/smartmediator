@@ -1,43 +1,36 @@
 package stc21.smartmediator.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users_organizations", schema = "public", catalog = "postgres")
-public class UsersOrganizationsEntity {
+@Table(name = "buyers", schema = "public", catalog = "postgres")
+public class BuyersEntity {
     private UUID id;
-    private UUID userId;
     private UUID orgId;
+    private UUID pricePatternId;
 
-    public UsersOrganizationsEntity(UUID userId, UUID orgId) {
-        this.userId = userId;
+    BuyersEntity(UUID orgId, UUID pricePatternId) {
         this.orgId = orgId;
+        this.pricePatternId = pricePatternId;
     }
 
-    public UsersOrganizationsEntity() {
+    public BuyersEntity() {
 
     }
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }
 
-    private void setId(UUID id) {
+    public void setId(UUID id) {
         this.id = id;
-    }
-
-    @Column(name = "user_id")
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID id) {
-        this.userId = id;
     }
 
     @Column(name = "org_id")
@@ -49,11 +42,20 @@ public class UsersOrganizationsEntity {
         this.orgId = id;
     }
 
+    @Column(name = "price_pattern_id")
+    public UUID getPricePatternId() {
+        return pricePatternId;
+    }
+
+    public void setPricePatternId(UUID id) {
+        this.pricePatternId = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsersOrganizationsEntity that = (UsersOrganizationsEntity) o;
+        BuyersEntity that = (BuyersEntity) o;
         return Objects.equals(id, that.id);
     }
 

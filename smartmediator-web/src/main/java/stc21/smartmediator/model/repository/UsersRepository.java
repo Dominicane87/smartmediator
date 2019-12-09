@@ -17,10 +17,6 @@ public interface UsersRepository extends CrudRepository<UsersEntity, UUID> {
 
     // some custom queries
 
-    default List<UsersEntity> searchByEmail(String email) {
-        return null;
-    }
-
     Optional<UsersEntity> findByEmail(String email);
 
     @Transactional
