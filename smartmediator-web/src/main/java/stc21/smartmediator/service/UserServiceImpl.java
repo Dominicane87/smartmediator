@@ -1,16 +1,10 @@
-package stc21.smartmediator.model.service;
+package stc21.smartmediator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import stc21.smartmediator.model.entity.UserStatusesEntity;
-import stc21.smartmediator.model.entity.UsersEntity;
-import stc21.smartmediator.model.repository.RolesRepository;
-import stc21.smartmediator.model.repository.UsersRepository;
-import stc21.smartmediator.model.repository.UserStatusesRepository;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import stc21.smartmediator.repository.RolesRepository;
+import stc21.smartmediator.repository.UsersRepository;
+import stc21.smartmediator.repository.UserStatusesRepository;
 
 @Service
 public class UserServiceImpl implements UserService {

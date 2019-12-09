@@ -1,11 +1,8 @@
-package stc21.smartmediator.model.service;
+package stc21.smartmediator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import stc21.smartmediator.model.entity.RolesEntity;
-import stc21.smartmediator.model.repository.RolesRepository;
-
-import java.util.List;
+import stc21.smartmediator.repository.RolesRepository;
 
 @Service
 public class RoleServiceImpl implements RolesService {

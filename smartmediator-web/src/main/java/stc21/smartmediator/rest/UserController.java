@@ -1,17 +1,8 @@
 package stc21.smartmediator.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import stc21.smartmediator.model.entity.RolesEntity;
-import stc21.smartmediator.model.entity.UserStatusesEntity;
-import stc21.smartmediator.model.repository.*;
-import stc21.smartmediator.model.entity.UsersEntity;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import stc21.smartmediator.repository.*;
 
 @RestController
 public class UserController {

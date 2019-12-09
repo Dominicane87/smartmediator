@@ -2,8 +2,8 @@ package stc21.smartmediator.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import stc21.smartmediator.model.entity.*;
-import stc21.smartmediator.model.repository.*;
+import stc21.smartmediator.entity.*;
+import stc21.smartmediator.repository.*;
 
 import java.util.Map;
 import java.util.Optional;

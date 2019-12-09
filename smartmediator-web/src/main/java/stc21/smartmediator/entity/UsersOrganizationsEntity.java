@@ -1,6 +1,4 @@
-package stc21.smartmediator.model.entity;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package stc21.smartmediator.entity;
 
 import javax.persistence.*;
 import java.util.Objects;

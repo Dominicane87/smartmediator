@@ -1,12 +1,12 @@
-package stc21.smartmediator.model.entity;
+package stc21.smartmediator.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "org_statuses", schema = "public", catalog = "postgres")
-public class OrgStatusesEntity {
+@Table(name = "user_statuses", schema = "public", catalog = "postgres")
+public class UserStatusesEntity {
     private UUID id;
     private String code;
     private String name;
@@ -17,7 +17,7 @@ public class OrgStatusesEntity {
         return id;
     }
 
-    public void setId(UUID id) {
+    private void setId(UUID id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class OrgStatusesEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrgStatusesEntity that = (OrgStatusesEntity) o;
+        UserStatusesEntity that = (UserStatusesEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(code, that.code) &&
                 Objects.equals(name, that.name);

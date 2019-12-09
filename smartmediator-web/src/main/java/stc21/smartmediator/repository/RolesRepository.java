@@ -1,8 +1,8 @@
-package stc21.smartmediator.model.repository;
+package stc21.smartmediator.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import stc21.smartmediator.model.entity.RolesEntity;
+import stc21.smartmediator.entity.RolesEntity;
 
 import java.util.UUID;
 

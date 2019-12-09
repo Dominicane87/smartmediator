@@ -1,4 +1,4 @@
-package stc21.smartmediator.model.entity;
+package stc21.smartmediator.entity;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

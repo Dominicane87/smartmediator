@@ -1,8 +1,4 @@
-package stc21.smartmediator.model.service;
-
-import stc21.smartmediator.model.entity.UsersEntity;
-
-import java.util.List;
+package stc21.smartmediator.service;
 
 public interface UserService {
 //    List<UsersEntity> findAll();
