@@ -1,9 +1,9 @@
-package stc21.smartmediator.model;
+package stc21.smartmediator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import stc21.smartmediator.model.entity.BuyersEntity;
-import stc21.smartmediator.model.repository.BuyersRepository;
+import stc21.smartmediator.entity.BuyersEntity;
+import stc21.smartmediator.repository.BuyersRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

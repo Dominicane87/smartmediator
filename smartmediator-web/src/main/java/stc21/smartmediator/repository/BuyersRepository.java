@@ -1,7 +1,7 @@
-package stc21.smartmediator.model.repository;
+package stc21.smartmediator.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import stc21.smartmediator.model.entity.BuyersEntity;
+import stc21.smartmediator.entity.BuyersEntity;
 
 import javax.transaction.Transactional;
 import java.util.Collection;

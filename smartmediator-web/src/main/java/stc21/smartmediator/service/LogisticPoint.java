@@ -1,10 +1,10 @@
-package stc21.smartmediator.model;
+package stc21.smartmediator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import stc21.smartmediator.model.entity.LogisticsPointsEntity;
-import stc21.smartmediator.model.entity.OrganizationsEntity;
-import stc21.smartmediator.model.repository.LogisticsPointsRepository;
+import stc21.smartmediator.entity.LogisticsPointsEntity;
+import stc21.smartmediator.entity.OrganizationsEntity;
+import stc21.smartmediator.repository.LogisticsPointsRepository;
 
 import java.util.*;
 

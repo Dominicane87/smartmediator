@@ -1,4 +1,4 @@
-package stc21.smartmediator.model.entity;
+package stc21.smartmediator.entity;
 
 import javax.persistence.*;
 import java.util.List;

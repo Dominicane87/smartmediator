@@ -1,10 +1,10 @@
-package stc21.smartmediator.model;
+package stc21.smartmediator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import stc21.smartmediator.model.entity.OrgStatusesEntity;
-import stc21.smartmediator.model.entity.OrganizationsEntity;
-import stc21.smartmediator.model.repository.*;
+import stc21.smartmediator.entity.OrgStatusesEntity;
+import stc21.smartmediator.entity.OrganizationsEntity;
+import stc21.smartmediator.repository.*;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -65,7 +65,7 @@ public class Organization {
     }
 
     public OrganizationsEntity findByInn(String inn) {
-        return repository.findByInn(inn).orElse(null);
+        return (OrganizationsEntity) repository.findByInn(inn).orElse(null);
     }
 
     public ArrayList<OrganizationsEntity> getAll() {
