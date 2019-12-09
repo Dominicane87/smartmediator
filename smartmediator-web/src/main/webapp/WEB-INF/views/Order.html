@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="container">
+        <ul class="nav nav-tabs" role="tablist">
+            <li><a href="#">Заказы</a></li>
+            <li><a href="#">Заявки</a></li>
+            <li><a href="#">История</a></li>
+            <li><a href="#">Данные</a></li>
+        </ul>
+    </div>
+    <div class="inline">
+        <h2>Заказ № </h2>
+        <h2 >1234</h2>
+    </div>
+    <div class="container">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>Дата:</td>
+                <td>14.12.2017</td>
+            </tr>
+            <tr>
+                <td>Поставщик:</td>
+                <td>Вася</td>
+            </tr>
+            <tr>
+                <td>Покупатель:</td>
+                <td>Петя</td>
+            </tr>
+            <tr>
+                <td>Адрес доставки:</td>
+                <td>Люберцы</td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/cancelOrder}" method="get" >
+            <button id="cancel" type="submit">Отменить заказ</button>
+        </form>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Товар</td>
+                <td>Количество</td>
+                <td>Цена</td>
+                <td>Итого</td>
+            </tr>
+            </thead>
+            <tbody id="myTable">
+            <tr >
+                <td>Травка</td>
+                <td>косяк</td>
+                <td> 150</td>
+                <td>150</td>
+            </tr>
+            <tr >
+                <td>Водка</td>
+                <td>бутылка</td>
+                <td >350</td>
+                <td>350</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+</body>
+
+<script>
+
+    document.getElementById('cancel').disabled = false;
+
+</script>
+
+
+</html>
