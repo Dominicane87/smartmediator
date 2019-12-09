@@ -13,9 +13,7 @@ public interface OrgStatusesRepository extends JpaRepository<OrgStatusesEntity, 
 
     // some custom queries
 
-    default List<UserStatusesEntity> search(String query) {
-        return null;
-    }
+    List<UserStatusesEntity> search(String query);
 
     OrgStatusesEntity findByCode(String code);
 }

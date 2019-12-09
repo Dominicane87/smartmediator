@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import stc21.smartmediator.model.entity.UserStatusesEntity;
 import stc21.smartmediator.model.entity.UsersEntity;
 import stc21.smartmediator.model.repository.RolesRepository;
-import stc21.smartmediator.model.repository.UserRepository;
+import stc21.smartmediator.model.repository.UsersRepository;
 import stc21.smartmediator.model.repository.UserStatusesRepository;
 
 import java.util.List;
@@ -16,13 +16,13 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository repository;
+    private UsersRepository repository;
     @Autowired
     private RolesRepository rolesRepository;
     @Autowired
     private UserStatusesRepository userStatusesRepository;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UsersRepository repository) {
         this.repository = repository;
         this.rolesRepository = rolesRepository;
         this.userStatusesRepository = userStatusesRepository;
