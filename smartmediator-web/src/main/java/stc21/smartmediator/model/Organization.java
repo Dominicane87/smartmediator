@@ -64,6 +64,10 @@ public class Organization {
         return org.orElse(null);
     }
 
+    public OrganizationsEntity findByInn(String inn) {
+        return repository.findByInn(inn).orElse(null);
+    }
+
     public ArrayList<OrganizationsEntity> getAll() {
         Iterable<OrganizationsEntity> orgs = repository.findAll();
         ArrayList<OrganizationsEntity> orgList = new ArrayList<>();

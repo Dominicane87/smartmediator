@@ -69,6 +69,10 @@ public class User {
         return user.orElse(null);
     }
 
+    public UsersEntity findByEmail(String email) {
+        return repository.findByEmail(email).orElse(null);
+    }
+
     public ArrayList<UsersEntity> getAll() {
         Iterable<UsersEntity> users = repository.findAll();
         ArrayList<UsersEntity> userList = new ArrayList<>();
