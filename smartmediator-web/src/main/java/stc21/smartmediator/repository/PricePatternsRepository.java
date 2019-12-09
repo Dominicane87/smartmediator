@@ -2,10 +2,7 @@ package stc21.smartmediator.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import stc21.smartmediator.entity.PricePatternsEntity;
-import stc21.smartmediator.entity.PricePatternsEntity;
 
-import javax.transaction.Transactional;
-import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.UUID;
 

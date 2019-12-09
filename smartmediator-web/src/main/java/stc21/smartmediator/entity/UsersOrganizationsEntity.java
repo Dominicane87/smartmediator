@@ -8,12 +8,12 @@ import java.util.UUID;
 @Table(name = "users_organizations", schema = "public", catalog = "postgres")
 public class UsersOrganizationsEntity {
     private UUID id;
-    private UUID user_id;
-    private UUID org_id;
+    private UUID userId;
+    private UUID orgId;
 
-    public UsersOrganizationsEntity(UUID user_id, UUID org_id) {
-        this.user_id = user_id;
-        this.org_id = org_id;
+    public UsersOrganizationsEntity(UUID userId, UUID orgId) {
+        this.userId = userId;
+        this.orgId = orgId;
     }
 
     public UsersOrganizationsEntity() {
@@ -33,20 +33,20 @@ public class UsersOrganizationsEntity {
 
     @Column(name = "user_id")
     public UUID getUserId() {
-        return user_id;
+        return userId;
     }
 
     public void setUserId(UUID id) {
-        this.user_id = id;
+        this.userId = id;
     }
 
     @Column(name = "org_id")
     public UUID getOrgId() {
-        return org_id;
+        return orgId;
     }
 
     public void setOrgId(UUID id) {
-        this.org_id = id;
+        this.orgId = id;
     }
 
     @Override

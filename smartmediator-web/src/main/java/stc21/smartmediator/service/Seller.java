@@ -14,12 +14,15 @@ public class Seller {
 
     private final SellersRepository repository;
     private final PricePattern pricePattern;
+    private final Product product;
 
     @Autowired
     public Seller(SellersRepository repository,
-                  PricePattern pricePattern) {
+                  PricePattern pricePattern,
+                  Product product) {
         this.repository = repository;
         this.pricePattern = pricePattern;
+        this.product = product;
     }
 
     public SellersEntity create(OrganizationsEntity organization) {
@@ -49,6 +52,7 @@ public class Seller {
 
     @Transactional
     public void delete(UUID id) {
+        product.deleteAllBySellerId(id);
         pricePattern.deleteAllBySellerId(id);
         repository.deleteById(id);
     }
