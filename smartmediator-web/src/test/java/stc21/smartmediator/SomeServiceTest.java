@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import stc21.smartmediator.model.Organization;
 import stc21.smartmediator.model.User;
-import stc21.smartmediator.model.service.SomeService;
+import stc21.smartmediator.service.SomeService;
 
 import java.util.UUID;
 
