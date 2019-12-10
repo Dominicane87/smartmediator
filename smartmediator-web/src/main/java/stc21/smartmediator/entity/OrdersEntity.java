@@ -11,6 +11,7 @@ public class OrdersEntity {
     private String note;
     private UUID statusId;
     private UUID buyerId;
+    private UUID sellerId;
     private UUID deliveryTypeId;
     private UUID pricePatternId;
     private UUID getFrom;
@@ -20,6 +21,7 @@ public class OrdersEntity {
             String note,
             UUID statusId,
             UUID buyerId,
+            UUID sellerId,
             UUID deliveryTypeId,
             UUID pricePatternId,
             UUID getFrom,
@@ -27,6 +29,7 @@ public class OrdersEntity {
         this.note = note;
         this.statusId = statusId;
         this.buyerId = buyerId;
+        this.sellerId = sellerId;
         this.deliveryTypeId = deliveryTypeId;
         this.pricePatternId = pricePatternId;
         this.getFrom = getFrom;
@@ -109,6 +112,15 @@ public class OrdersEntity {
 
     public void setSetTo(UUID value) {
         this.setTo = value;
+    }
+
+    @Column(name = "seller_id")
+    public UUID getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(UUID value) {
+        this.sellerId = value;
     }
 
     @Override

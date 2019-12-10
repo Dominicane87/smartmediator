@@ -19,10 +19,12 @@ public class Product {
     private final String deletedFieldName = "deleted";
 
     private final ProductsRepository repository;
+    private final OrderProduct orderProduct;
 
     @Autowired
-    public Product(ProductsRepository repository) {
+    public Product(ProductsRepository repository, OrderProduct orderProduct) {
         this.repository = repository;
+        this.orderProduct = orderProduct;
     }
 
     public ProductsEntity create(String code,
@@ -92,6 +94,7 @@ public class Product {
 
     @Transactional
     public void delete(UUID id) {
+        orderProduct.deleteByProductId(id);
         repository.deleteById(id);
     }
 }

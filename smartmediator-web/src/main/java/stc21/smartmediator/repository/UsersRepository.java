@@ -17,20 +17,14 @@ public interface UsersRepository extends CrudRepository<UsersEntity, UUID> {
     Optional<UsersEntity> findByEmail(String email);
 
     @Transactional
-    default void delete(UUID id, UsersOrganizationsRepository usersOrgRepository) {
-        usersOrgRepository.deleteAllByUserId(id);
-        deleteById(id);
-    }
-
-    @Transactional
-    default UsersEntity save(UsersEntity user,
-                             Iterable<UUID> orgIds,
-                             UsersOrganizationsRepository usersOrgRepository) {
-        UsersEntity result = save(user);
-        orgIds.forEach(x -> {
-            UsersOrganizationsEntity userOrg = new UsersOrganizationsEntity(result.getId(), x);
-            usersOrgRepository.save(userOrg);
-        });
-        return result;
+        default UsersEntity save(UsersEntity user,
+                Iterable<UUID> orgIds,
+                UsersOrganizationsRepository usersOrgRepository) {
+            UsersEntity result = save(user);
+            orgIds.forEach(x -> {
+                UsersOrganizationsEntity userOrg = new UsersOrganizationsEntity(result.getId(), x);
+                usersOrgRepository.save(userOrg);
+            });
+            return result;
     }
 }

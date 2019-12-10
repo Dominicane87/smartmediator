@@ -11,6 +11,7 @@ import stc21.smartmediator.repository.UserStatusesRepository;
 import stc21.smartmediator.repository.UsersOrganizationsRepository;
 import stc21.smartmediator.repository.UsersRepository;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,17 +28,19 @@ public class User {
     private final UsersOrganizationsRepository userOrgRepository;
     private final RolesRepository rolesRepository;
     private final UserStatusesRepository userStatusesRepository;
+    private final TraceOrder traceOrder;
 
     @Autowired
     public User(UsersRepository repository,
                 UsersOrganizationsRepository userOrgRepository,
                 RolesRepository rolesRepository,
-                UserStatusesRepository userStatusesRepository) {
+                UserStatusesRepository userStatusesRepository, TraceOrder traceOrder) {
         this.repository = repository;
         this.userOrgRepository = userOrgRepository;
 
         this.rolesRepository = rolesRepository;
         this.userStatusesRepository = userStatusesRepository;
+        this.traceOrder = traceOrder;
     }
 
     private UUID userRoleId;
@@ -115,7 +118,10 @@ public class User {
         return repository.save(user);
     }
 
+    @Transactional
     public void delete(UUID id) {
-        repository.delete(id, userOrgRepository);
+        userOrgRepository.deleteAllByUserId(id);
+        traceOrder.deleteByAuthor(id);
+        repository.deleteById(id);
     }
 }

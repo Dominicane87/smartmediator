@@ -15,10 +15,12 @@ import java.util.UUID;
 public class Buyer {
 
     private final BuyersRepository repository;
+    private final Order order;
 
     @Autowired
-    public Buyer(BuyersRepository buyersRepository) {
+    public Buyer(BuyersRepository buyersRepository, Order order) {
         this.repository = buyersRepository;
+        this.order = order;
     }
 
     public BuyersEntity get(UUID id) {
@@ -49,7 +51,7 @@ public class Buyer {
 
     @Transactional
     public void delete(UUID id) {
-
+        order.deleteByBuyerId(id);
         repository.deleteById(id);
     }
 }

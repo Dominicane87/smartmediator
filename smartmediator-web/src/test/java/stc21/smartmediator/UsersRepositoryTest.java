@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import stc21.smartmediator.entity.UsersEntity;
 import stc21.smartmediator.entity.UsersOrganizationsEntity;
 import stc21.smartmediator.repository.*;
+import stc21.smartmediator.service.User;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -41,15 +42,18 @@ public class UsersRepositoryTest {
     @Autowired
     private UserStatusesRepository userStatusesRepository;
 
+    @Autowired
+    private User user;
+
     @Test
     public void userSaveTest(){
         UUID status_id = userStatusesRepository.findByCode("new").getId();
         UUID role_id = rolesRepository.findByCode("user").getId();
-        UsersEntity user = new UsersEntity(
+        UsersEntity newUser = new UsersEntity(
                 UUID.randomUUID() + "test", "test", "userSaveTest", role_id, status_id);
         ArrayList<UUID> orgIds = new ArrayList<>();
         orgRepository.findAll().forEach(x -> orgIds.add(x.getId()));
-        UUID user_id = repository.save(user, orgIds, userOrgRepository).getId();
+        UUID user_id = repository.save(newUser, orgIds, userOrgRepository).getId();
 
         Iterable<UsersOrganizationsEntity> userOrgs = userOrgRepository.findAllByUserId(user_id);
         AtomicInteger count = new AtomicInteger();
@@ -60,7 +64,7 @@ public class UsersRepositoryTest {
 
         assertEquals(orgIds.size(), count.get());
 
-        repository.delete(user_id, userOrgRepository);
+        user.delete(user_id);
 
         Iterable<UsersOrganizationsEntity> uo = userOrgRepository.findAllByUserId(user_id);
         assertFalse(uo.iterator().hasNext());

@@ -4,9 +4,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import stc21.smartmediator.entity.OrdersEntity;
 
+import java.util.Collection;
 import java.util.UUID;
 
 @Repository
 public interface OrdersRepository extends CrudRepository<OrdersEntity, UUID> {
+
+    Collection<OrdersEntity> findAllBySellerId(UUID id);
+
+    Collection<OrdersEntity> findAllByBuyerId(UUID id);
 
 }
