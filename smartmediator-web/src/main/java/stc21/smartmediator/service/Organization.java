@@ -24,7 +24,6 @@ public class Organization {
     private final OrgStatusesRepository orgStatusesRepository;
     private final LogisticsPointsRepository logisticsPointsRepository;
     private final PricePatternsRepository pricePatternsRepository;
-    //private final SellersRepository sellersRepository;
     private final Seller seller;
     private final BuyersRepository buyersRepository;
 
@@ -65,7 +64,7 @@ public class Organization {
     }
 
     public OrganizationsEntity findByInn(String inn) {
-        return (OrganizationsEntity) repository.findByInn(inn).orElse(null);
+        return repository.findByInn(inn).orElse(null);
     }
 
     public ArrayList<OrganizationsEntity> getAll() {

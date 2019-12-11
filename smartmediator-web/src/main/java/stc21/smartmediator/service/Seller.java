@@ -14,12 +14,19 @@ public class Seller {
 
     private final SellersRepository repository;
     private final PricePattern pricePattern;
+    private final Product product;
+    private final Order order;
+    private final ExternalLink externalLink;
 
     @Autowired
     public Seller(SellersRepository repository,
-                  PricePattern pricePattern) {
+                  PricePattern pricePattern,
+                  Product product, Order order, ExternalLink externalLink) {
         this.repository = repository;
         this.pricePattern = pricePattern;
+        this.product = product;
+        this.order = order;
+        this.externalLink = externalLink;
     }
 
     public SellersEntity create(OrganizationsEntity organization) {
@@ -49,7 +56,10 @@ public class Seller {
 
     @Transactional
     public void delete(UUID id) {
+        product.deleteAllBySellerId(id);
         pricePattern.deleteAllBySellerId(id);
+        order.deleteBySellerId(id);
+        externalLink.deleteBySellerId(id);
         repository.deleteById(id);
     }
 }

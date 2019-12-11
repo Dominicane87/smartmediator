@@ -5,11 +5,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "roles", schema = "public", catalog = "postgres")
-public class RolesEntity {
+@Table(name = "products_types", schema = "public", catalog = "postgres")
+public class ProductsTypesEntity {
     private UUID id;
     private String code;
     private String name;
+    private Boolean deleted;
 
     @Id
     @Column(name = "id")
@@ -17,7 +18,7 @@ public class RolesEntity {
         return id;
     }
 
-    private void setId(UUID id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -41,18 +42,29 @@ public class RolesEntity {
         this.name = name;
     }
 
+    @Basic
+    @Column(name = "deleted")
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RolesEntity that = (RolesEntity) o;
+        ProductsTypesEntity that = (ProductsTypesEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(code, that.code) &&
-                Objects.equals(name, that.name);
+                Objects.equals(name, that.name) &&
+                Objects.equals(deleted, that.deleted);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, name);
+        return Objects.hash(id, code, name, deleted);
     }
 }

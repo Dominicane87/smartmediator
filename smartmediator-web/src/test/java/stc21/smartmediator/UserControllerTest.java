@@ -8,7 +8,7 @@
 //import org.springframework.http.MediaType;
 //import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
-//import stc21.smartmediator.model.repository.UsersRepository;
+//import stc21.smartmediator.repository.UsersRepository;
 //
 //import java.util.UUID;
 //
