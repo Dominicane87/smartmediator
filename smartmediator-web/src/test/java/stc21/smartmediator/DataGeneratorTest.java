@@ -2,6 +2,7 @@ package stc21.smartmediator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.postgresql.util.PGmoney;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -9,6 +10,7 @@ import stc21.smartmediator.entity.*;
 import stc21.smartmediator.repository.*;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -68,6 +70,12 @@ public class DataGeneratorTest {
     @Autowired
     private TraceOrdersRepository traceOrdersRepository;
 
+    @Autowired
+    private OrdersProductsRepository ordersProductsRepository;
+
+    @Autowired
+    private PricesRepository pricesRepository;
+
     private ArrayList<OrganizationsEntity> getOrgs(List<OrgStatusesEntity> statuses, int count, int i) {
         ArrayList<OrganizationsEntity> orgs = new ArrayList<>();
         for (OrgStatusesEntity status : Collections.unmodifiableList(statuses)) {
@@ -82,8 +90,10 @@ public class DataGeneratorTest {
     }
 
     @Test
-    public void InsertTest() {
+    public void InsertTest() throws SQLException {
 
+        pricesRepository.deleteAll();
+        ordersProductsRepository.deleteAll();
         traceOrdersRepository.deleteAll();
         ordersRepository.deleteAll();
         logisticsPointsRepository.deleteAll();
@@ -156,7 +166,7 @@ public class DataGeneratorTest {
         assertEquals(2, deliveryTypes.size());
 
         int i = 0;
-        int count = 3;
+        int count = 2;
         int totalOrgCount = statuses.size() * count * 2;
 
         ArrayList<OrganizationsEntity> sellerOrgs = getOrgs(statuses, count, 0);
@@ -186,7 +196,11 @@ public class DataGeneratorTest {
             for (OrganizationsEntity org : orgs) {
                 for (int j = 0; j < count; j++) {
                     UsersEntity newUser = usersRepository.save(new UsersEntity(
-                            "email " + i, "password hash" + i, "full name" + i, userRoleId, userStatus.getId()));
+                            "email " + i,
+                            "password hash" + i,
+                            "full name" + i,
+                            userRoleId,
+                            userStatus.getId()));
                     usersOrganizations.add(new UsersOrganizationsEntity(newUser.getId(), org.getId()));
                     i++;
                 }
@@ -328,10 +342,74 @@ public class DataGeneratorTest {
         assertEquals(i, orders.size());
 
         i = 0;
-
         List<TraceOrdersEntity> traces = new ArrayList<>();
+        Iterator<UsersEntity> userIterator = users.iterator();
         for(OrdersEntity order : orders) {
+            for(OrderStatusesEntity status : orderStatuses) {
+                if(!userIterator.hasNext()) {
+                    userIterator = users.iterator();
+                }
 
+                UsersEntity user = userIterator.next();
+                traces.add(new TraceOrdersEntity(
+                        "note " + i, status.getId(), user.getId(), order.getId()));
+                i++;
+                if(status.getId().equals(order.getStatusId())) {
+                    break;
+                }
+            }
         }
+        traceOrdersRepository.saveAll(traces);
+        traces = traceOrdersRepository.findAll();
+        assertEquals(i, traces.size());
+
+        i = 0;
+        List<OrdersProductsEntity> orderProducts = new ArrayList<>();
+        for(SellersEntity seller : sellers) {
+            UUID sellerId = seller.getId();
+            Collection<OrdersEntity> sellerOrders = ordersRepository.findAllBySellerId(sellerId);
+            Collection<ProductsEntity> sellerProducts = productsRepository.findAllBySellerId(sellerId);
+            Iterator<ProductsEntity> productsSellerIterator = sellerProducts.iterator();
+            for (OrdersEntity order : sellerOrders) {
+                for (int j = 0; j < count; j++) {
+                    if (!productsSellerIterator.hasNext()) {
+                        productsSellerIterator = sellerProducts.iterator();
+                    }
+                    ProductsEntity product = productsSellerIterator.next();
+                    orderProducts.add(new OrdersProductsEntity(
+                                BigDecimal.valueOf(rnd.nextInt(10) + 1),
+                                "note " + i,
+                                order.getId(),
+                                product.getId()));
+                    i++;
+                }
+            }
+        }
+        ordersProductsRepository.saveAll(orderProducts);
+        orderProducts = ordersProductsRepository.findAll();
+        assertEquals(i, orderProducts.size());
+
+        i = 0;
+
+        List<PricesEntity> prices = new ArrayList<>();
+        for(SellersEntity seller : sellers) {
+            UUID sellerId = seller.getId();
+            Collection<PricePatternsEntity> sellerPatterns = pricePatternsRepository.findBySellerId(sellerId);
+            Collection<ProductsEntity> sellerProducts = productsRepository.findAllBySellerId(sellerId);
+
+            for(PricePatternsEntity pattern : sellerPatterns) {
+                for(ProductsEntity product : sellerProducts) {
+                    int cost = rnd.nextInt() * 100 + 1;
+                    PGmoney money = new PGmoney();
+                    money.setValue("$" + cost);
+                    prices.add(new PricesEntity(money, product.getId(), pattern.getId()));
+                }
+            }
+        }
+        pricesRepository.saveAll(prices);
+        prices = pricesRepository.findAll();
+        assertEquals(i, prices.size());
+
+        i = 0;
     }
 }

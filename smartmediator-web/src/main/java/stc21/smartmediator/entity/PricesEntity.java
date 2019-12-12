@@ -1,5 +1,7 @@
 package stc21.smartmediator.entity;
 
+import org.postgresql.util.PGmoney;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -9,11 +11,11 @@ import java.util.UUID;
 @Table(name = "prices", schema = "public", catalog = "postgres")
 public class PricesEntity {
     private UUID id;
-    private BigDecimal cost;
+    private PGmoney cost;
     private UUID productId;
     private UUID pricePatternId;
 
-    public PricesEntity(BigDecimal cost, UUID productId, UUID pricePatternId) {
+    public PricesEntity(PGmoney cost, UUID productId, UUID pricePatternId) {
         this.cost = cost;
         this.productId = productId;
         this.pricePatternId = pricePatternId;
@@ -36,11 +38,11 @@ public class PricesEntity {
 
     @Basic
     @Column(name = "cost")
-    public BigDecimal getCost() {
+    public PGmoney getCost() {
         return cost;
     }
 
-    public void setCost(BigDecimal cost) {
+    public void setCost(PGmoney cost) {
         this.cost = cost;
     }
 

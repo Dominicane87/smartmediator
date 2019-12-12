@@ -1,10 +1,12 @@
 package stc21.smartmediator.service;
 
+import org.postgresql.util.PGmoney;
 import stc21.smartmediator.entity.PricesEntity;
 import stc21.smartmediator.repository.PricesRepository;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +30,7 @@ public class Price {
         return priceList;
     }
 
-    public PricesEntity update(UUID id, Map<String, String> fields) {
+    public PricesEntity update(UUID id, Map<String, String> fields) throws SQLException {
 
         PricesEntity price = repository.findById(id).orElse(null);
         if(price == null) {
@@ -37,7 +39,9 @@ public class Price {
 
         String cost = fields.get(costFieldName);
         if(cost != null) {
-            price.setCost(BigDecimal.valueOf(Long.valueOf(cost)));
+            PGmoney money = new PGmoney();
+            money.setValue(cost);
+            price.setCost(money);
         }
 
         return repository.save(price);
