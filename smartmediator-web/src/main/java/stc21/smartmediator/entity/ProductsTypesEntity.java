@@ -12,8 +12,18 @@ public class ProductsTypesEntity {
     private String name;
     private Boolean deleted;
 
+    public ProductsTypesEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public ProductsTypesEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

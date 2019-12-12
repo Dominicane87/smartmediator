@@ -1,5 +1,6 @@
 package stc21.smartmediator.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import stc21.smartmediator.entity.LogisticsPointsEntity;
 
@@ -7,7 +8,7 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.UUID;
 
-public interface LogisticsPointsRepository extends CrudRepository<LogisticsPointsEntity, UUID> {
+public interface LogisticsPointsRepository extends JpaRepository<LogisticsPointsEntity, UUID> {
 
     Collection<LogisticsPointsEntity> findByOrgId(UUID id);
 

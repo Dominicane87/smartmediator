@@ -25,7 +25,8 @@ public class OrganizationTest {
     public void deleteOrganizationTest() {
 
         Organization org = applicationContext.getBean(Organization.class);
-        UUID orgId = UUID.fromString("1848bc4f-b8df-4e73-9551-e3e168fee181");
+        UUID orgId = org.getAll().iterator().next().getId();
+        //UUID orgId = UUID.fromString("1848bc4f-b8df-4e73-9551-e3e168fee181");
         org.delete(orgId);
 
         assertNull(org.get(orgId));

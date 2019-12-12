@@ -1,9 +1,6 @@
 package stc21.smartmediator.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -14,7 +11,7 @@ public class BuyersEntity {
     private UUID orgId;
     private UUID pricePatternId;
 
-    BuyersEntity(UUID orgId, UUID pricePatternId) {
+    public BuyersEntity(UUID orgId, UUID pricePatternId) {
         this.orgId = orgId;
         this.pricePatternId = pricePatternId;
     }
@@ -25,6 +22,7 @@ public class BuyersEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

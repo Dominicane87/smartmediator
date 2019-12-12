@@ -11,8 +11,18 @@ public class OrderStatusesEntity {
     private String code;
     private String name;
 
+    public OrderStatusesEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public OrderStatusesEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }
