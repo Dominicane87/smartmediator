@@ -52,7 +52,7 @@ public class ExternalLink {
     }
 
     @Transactional
-    public int deleteByProductId(UUID productId) {
+    public int deleteAllByProductId(UUID productId) {
         Collection<ExternalLinksEntity> links = repository.findAllByProductId(productId);
         links.forEach(x -> delete(x.getId()));
         return links.size();

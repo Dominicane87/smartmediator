@@ -1,6 +1,7 @@
 package stc21.smartmediator.service;
 
 import org.postgresql.util.PGmoney;
+import org.springframework.stereotype.Component;
 import stc21.smartmediator.entity.PricesEntity;
 import stc21.smartmediator.repository.PricesRepository;
 
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 
+@Component
 public class Price {
 
     private final String costFieldName = "cost";
@@ -39,16 +41,15 @@ public class Price {
 
         String cost = fields.get(costFieldName);
         if(cost != null) {
-            PGmoney money = new PGmoney();
-            money.setValue(cost);
-            price.setCost(money);
+            BigDecimal val = BigDecimal.valueOf(Long.valueOf(cost));
+            price.setCost(val);
         }
 
         return repository.save(price);
     }
 
     @Transactional
-    public int deleteByProductId(UUID productId) {
+    public int deleteAllByProductId(UUID productId) {
         Collection<PricesEntity> prices = repository.findAllByProductId(productId);
         prices.forEach(
                 x -> delete(x.getId()));

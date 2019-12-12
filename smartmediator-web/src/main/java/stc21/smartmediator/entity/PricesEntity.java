@@ -11,11 +11,11 @@ import java.util.UUID;
 @Table(name = "prices", schema = "public", catalog = "postgres")
 public class PricesEntity {
     private UUID id;
-    private PGmoney cost;
+    private BigDecimal cost;
     private UUID productId;
     private UUID pricePatternId;
 
-    public PricesEntity(PGmoney cost, UUID productId, UUID pricePatternId) {
+    public PricesEntity(BigDecimal cost, UUID productId, UUID pricePatternId) {
         this.cost = cost;
         this.productId = productId;
         this.pricePatternId = pricePatternId;
@@ -38,11 +38,11 @@ public class PricesEntity {
 
     @Basic
     @Column(name = "cost")
-    public PGmoney getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(PGmoney cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 

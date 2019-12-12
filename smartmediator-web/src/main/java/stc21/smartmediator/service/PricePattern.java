@@ -19,12 +19,14 @@ public class PricePattern {
 
     private final PricePatternsRepository repository;
     private final Buyer buyer;
+    private final Price price;
 
     @Autowired
     public PricePattern(PricePatternsRepository repository,
-                        Buyer buyer) {
+                        Buyer buyer, Price price) {
         this.repository = repository;
         this.buyer = buyer;
+        this.price = price;
     }
 
     public PricePatternsEntity create(String code,
@@ -106,6 +108,7 @@ public class PricePattern {
         }
 
         forDelete.forEach(x -> {
+            price.deleteAllByProductId(x);
             buyer.deleteAllByPricePatternId(x);
             repository.deleteById(x);
         });

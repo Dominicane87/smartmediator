@@ -399,10 +399,9 @@ public class DataGeneratorTest {
 
             for(PricePatternsEntity pattern : sellerPatterns) {
                 for(ProductsEntity product : sellerProducts) {
-                    int cost = rnd.nextInt() * 100 + 1;
-                    PGmoney money = new PGmoney();
-                    money.setValue("$" + cost);
-                    prices.add(new PricesEntity(money, product.getId(), pattern.getId()));
+                    BigDecimal cost = BigDecimal.valueOf(rnd.nextInt() * 100 + 1);
+                    prices.add(new PricesEntity(cost, product.getId(), pattern.getId()));
+                    i++;
                 }
             }
         }
