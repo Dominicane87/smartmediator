@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru" xmlns:th="">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<nav th:replace="fragments/nav :: nav"></nav>
+<main role="main" class="container">
+    <div class="starter-template">
+        <div class="container">
+
+            <div class="inline">
+                <h2>Заказ № </h2>
+                <h2 >1234</h2>
+            </div>
+            <div class="container">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Дата:</td>
+                        <td>14.12.2017</td>
+                    </tr>
+                    <tr>
+                        <td>Поставщик:</td>
+                        <td>Вася</td>
+                    </tr>
+                    <tr>
+                        <td>Покупатель:</td>
+                        <td>Петя</td>
+                    </tr>
+                    <tr>
+                        <td>Адрес доставки:</td>
+                        <td>Люберцы</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <form th:action="@{/cancelOrder}" method="get" >
+                    <button id="cancel" type="submit">Отменить заказ</button>
+                </form>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Товар</td>
+                        <td>Количество</td>
+                        <td>Цена</td>
+                        <td>Итого</td>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    <tr >
+                        <td>Травка</td>
+                        <td>косяк</td>
+                        <td> 150</td>
+                        <td>150</td>
+                    </tr>
+                    <tr >
+                        <td>Водка</td>
+                        <td>бутылка</td>
+                        <td >350</td>
+                        <td>350</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</main><!-- /.container -->
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
