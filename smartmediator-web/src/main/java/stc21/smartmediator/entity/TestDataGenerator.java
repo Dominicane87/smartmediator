@@ -1,83 +1,97 @@
-package stc21.smartmediator;
+package stc21.smartmediator.entity;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.postgresql.util.PGmoney;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import stc21.smartmediator.entity.*;
+import org.springframework.stereotype.Component;
 import stc21.smartmediator.repository.*;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.*;
 
-import static org.junit.Assert.*;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-public class DataGeneratorTest {
+@Component
+public class TestDataGenerator {
 
     @Autowired
-    private OrgStatusesRepository orgStatusesRepository;
+    private final OrgStatusesRepository orgStatusesRepository;
 
     @Autowired
-    private OrganizationsRepository organizationsRepository;
+    private final OrganizationsRepository organizationsRepository;
 
     @Autowired
-    private SellersRepository sellersRepository;
+    private final SellersRepository sellersRepository;
 
     @Autowired
-    private RolesRepository rolesRepository;
+    private final RolesRepository rolesRepository;
 
     @Autowired
-    private OrderStatusesRepository orderStatusesRepository;
+    private final OrderStatusesRepository orderStatusesRepository;
 
     @Autowired
-    private DeliveryTypesRepository deliveryTypesRepository;
+    private final DeliveryTypesRepository deliveryTypesRepository;
 
     @Autowired
-    private UserStatusesRepository userStatusesRepository;
+    private final UserStatusesRepository userStatusesRepository;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
     @Autowired
-    private UsersOrganizationsRepository usersOrganizationsRepository;
+    private final UsersOrganizationsRepository usersOrganizationsRepository;
 
     @Autowired
-    private PricePatternsRepository pricePatternsRepository;
+    private final PricePatternsRepository pricePatternsRepository;
 
     @Autowired
-    private BuyersRepository buyersRepository;
+    private final BuyersRepository buyersRepository;
 
     @Autowired
-    private LogisticsPointsRepository logisticsPointsRepository;
+    private final LogisticsPointsRepository logisticsPointsRepository;
 
     @Autowired
-    private ProductsTypesRepository productsTypesRepository;
+    private final ProductsTypesRepository productsTypesRepository;
 
     @Autowired
-    private UnitsRepository unitsRepository;
+    private final UnitsRepository unitsRepository;
 
     @Autowired
-    private ProductsRepository productsRepository;
+    private final ProductsRepository productsRepository;
 
     @Autowired
-    private OrdersRepository ordersRepository;
+    private final OrdersRepository ordersRepository;
 
     @Autowired
-    private TraceOrdersRepository traceOrdersRepository;
+    private final TraceOrdersRepository traceOrdersRepository;
 
     @Autowired
-    private OrdersProductsRepository ordersProductsRepository;
+    private final OrdersProductsRepository ordersProductsRepository;
 
     @Autowired
-    private PricesRepository pricesRepository;
+    private final PricesRepository pricesRepository;
 
     @Autowired
-    private ExternalLinksRepository externalLinksRepository;
+    private final ExternalLinksRepository externalLinksRepository;
+
+    public TestDataGenerator(OrgStatusesRepository orgStatusesRepository, OrganizationsRepository organizationsRepository, SellersRepository sellersRepository, RolesRepository rolesRepository, OrderStatusesRepository orderStatusesRepository, DeliveryTypesRepository deliveryTypesRepository, UserStatusesRepository userStatusesRepository, UsersRepository usersRepository, UsersOrganizationsRepository usersOrganizationsRepository, PricePatternsRepository pricePatternsRepository, BuyersRepository buyersRepository, LogisticsPointsRepository logisticsPointsRepository, ProductsTypesRepository productsTypesRepository, UnitsRepository unitsRepository, ProductsRepository productsRepository, OrdersRepository ordersRepository, TraceOrdersRepository traceOrdersRepository, OrdersProductsRepository ordersProductsRepository, PricesRepository pricesRepository, ExternalLinksRepository externalLinksRepository) {
+        this.orgStatusesRepository = orgStatusesRepository;
+        this.organizationsRepository = organizationsRepository;
+        this.sellersRepository = sellersRepository;
+        this.rolesRepository = rolesRepository;
+        this.orderStatusesRepository = orderStatusesRepository;
+        this.deliveryTypesRepository = deliveryTypesRepository;
+        this.userStatusesRepository = userStatusesRepository;
+        this.usersRepository = usersRepository;
+        this.usersOrganizationsRepository = usersOrganizationsRepository;
+        this.pricePatternsRepository = pricePatternsRepository;
+        this.buyersRepository = buyersRepository;
+        this.logisticsPointsRepository = logisticsPointsRepository;
+        this.productsTypesRepository = productsTypesRepository;
+        this.unitsRepository = unitsRepository;
+        this.productsRepository = productsRepository;
+        this.ordersRepository = ordersRepository;
+        this.traceOrdersRepository = traceOrdersRepository;
+        this.ordersProductsRepository = ordersProductsRepository;
+        this.pricesRepository = pricesRepository;
+        this.externalLinksRepository = externalLinksRepository;
+    }
 
     private ArrayList<OrganizationsEntity> getOrgs(List<OrgStatusesEntity> statuses, int count, int i) {
         ArrayList<OrganizationsEntity> orgs = new ArrayList<>();
@@ -92,8 +106,9 @@ public class DataGeneratorTest {
         return orgs;
     }
 
-    @Test
-    public void InsertTest() throws SQLException {
+    public void deleteData() {
+
+        System.out.println("Data will be deleted.");
 
         externalLinksRepository.deleteAll();
         pricesRepository.deleteAll();
@@ -115,19 +130,20 @@ public class DataGeneratorTest {
         deliveryTypesRepository.deleteAll();
         unitsRepository.deleteAll();
         productsTypesRepository.deleteAll();
+    }
 
-        OrgStatusesEntity os = new OrgStatusesEntity("new", "Новая");
-        OrgStatusesEntity newOrgStatus = orgStatusesRepository.save(os);
-        os = new OrgStatusesEntity("wait", "Ожидает");
-        OrgStatusesEntity waitOrgStatus = orgStatusesRepository.save(os);
-        os = new OrgStatusesEntity("confirm", "Подтверждена");
-        OrgStatusesEntity confirmOrgStatus = orgStatusesRepository.save(os);
-        os = new OrgStatusesEntity("ban", "Забанена");
-        OrgStatusesEntity banOrgStatus = orgStatusesRepository.save(os);
+    public void createData(int multiplier) {
 
-        List<OrgStatusesEntity> statuses = orgStatusesRepository.findAll();
+        System.out.println("Generate test data start.");
 
-        assertEquals(4, statuses.size());
+        List<OrgStatusesEntity> statuses = new ArrayList<>();
+        statuses.add(new OrgStatusesEntity("new", "Новая"));
+        statuses.add(new OrgStatusesEntity("wait", "Ожидает"));
+        statuses.add(new OrgStatusesEntity("confirm", "Подтверждена"));
+        statuses.add(new OrgStatusesEntity("ban", "Забанена"));
+        orgStatusesRepository.saveAll(statuses);
+
+        System.out.println("Add OrgStatusesEntity: " + statuses.size());
 
         List<UserStatusesEntity> userStatuses = new ArrayList<>();
         userStatuses.add(new UserStatusesEntity("new", "Новая"));
@@ -136,17 +152,14 @@ public class DataGeneratorTest {
         userStatuses.add(new UserStatusesEntity("ban", "Забанена"));
         userStatusesRepository.saveAll(userStatuses);
 
-        userStatuses = userStatusesRepository.findAll();
-        assertEquals(4, userStatuses.size());
+        System.out.println("Add UserStatusesEntity: " + userStatuses.size());
 
         RolesEntity r = new RolesEntity("user", "Пользователь");
         rolesRepository.save(r);
         r = new RolesEntity("admin", "Администратор");
         rolesRepository.save(r);
 
-        List<RolesEntity> roles = rolesRepository.findAll();
-
-        assertEquals(2, roles.size());
+        System.out.println("Add RolesEntity: 2" );
 
         List<OrderStatusesEntity> orderStatuses = new ArrayList<>();
         orderStatuses.add(new OrderStatusesEntity("draft", "Черновик"));
@@ -158,29 +171,25 @@ public class DataGeneratorTest {
         orderStatuses.add(new OrderStatusesEntity("lost", "Потерян"));
         orderStatusesRepository.saveAll(orderStatuses);
 
-        orderStatuses = orderStatusesRepository.findAll();
-        assertEquals(7, orderStatuses.size());
+        System.out.println("Add OrderStatusesEntity: " + orderStatuses.size());
 
         DeliveryTypesEntity dt = new DeliveryTypesEntity("pickup", "Самовывоз");
         deliveryTypesRepository.save(dt);
         dt = new DeliveryTypesEntity("supply", "Доставка");
         deliveryTypesRepository.save(dt);
 
-        List<DeliveryTypesEntity> deliveryTypes = deliveryTypesRepository.findAll();
-        assertEquals(2, deliveryTypes.size());
+        System.out.println("Add OrderStatusesEntity: 2");
 
         int i = 0;
-        int count = 2;
-        int totalOrgCount = statuses.size() * count * 2;
+        int muliplier = 2;
+        int totalOrgCount = statuses.size() * muliplier * 2;
 
-        ArrayList<OrganizationsEntity> sellerOrgs = getOrgs(statuses, count, 0);
-        ArrayList<OrganizationsEntity> buyerOrgs = getOrgs(statuses, count, sellerOrgs.size());
+        ArrayList<OrganizationsEntity> sellerOrgs = getOrgs(statuses, muliplier, 0);
+        ArrayList<OrganizationsEntity> buyerOrgs = getOrgs(statuses, muliplier, sellerOrgs.size());
         organizationsRepository.saveAll(sellerOrgs);
         organizationsRepository.saveAll(buyerOrgs);
 
-        List<OrganizationsEntity> orgs = organizationsRepository.findAll();
-
-        assertEquals(totalOrgCount, orgs.size());
+        System.out.println("Add OrderStatusesEntity: " + (sellerOrgs.size() + buyerOrgs.size()));
 
         i = 0;
         for (OrganizationsEntity org : sellerOrgs) {
@@ -188,17 +197,16 @@ public class DataGeneratorTest {
             sellersRepository.save(seller);
         }
 
-        List<SellersEntity> sellers = sellersRepository.findAll();
-
-        assertEquals(sellerOrgs.size(), sellers.size());
+        System.out.println("Add SellersEntity: " + sellerOrgs.size());
 
         UUID userRoleId = rolesRepository.findByCode("user").getId();
 
         List<UsersOrganizationsEntity> usersOrganizations = new ArrayList<>();
+        List<OrganizationsEntity> orgs = organizationsRepository.findAll();
         i = 0;
         for (UserStatusesEntity userStatus : userStatuses) {
             for (OrganizationsEntity org : orgs) {
-                for (int j = 0; j < count; j++) {
+                for (int j = 0; j < muliplier; j++) {
                     UsersEntity newUser = usersRepository.save(new UsersEntity(
                             "email " + i,
                             "password hash" + i,
@@ -212,18 +220,14 @@ public class DataGeneratorTest {
         }
 
         usersOrganizationsRepository.saveAll(usersOrganizations);
-
-        int totalUsers = userStatuses.size() * orgs.size() * count;
-        List<UsersEntity> users = usersRepository.findAll();
-        assertEquals(totalUsers, users.size());
-
-        usersOrganizations = usersOrganizationsRepository.findAll();
-        assertEquals(totalUsers, usersOrganizations.size());
-
+        int totalUsers = userStatuses.size() * orgs.size() * muliplier;
+        System.out.println("Add UsersEntity: " + totalUsers);
+        System.out.println("Add UsersOrganizationsEntity: " + totalUsers);
+        List<SellersEntity> sellers = sellersRepository.findAll();
         i = 0;
         List<PricePatternsEntity> patterns = new ArrayList<>();
         for (SellersEntity seller : sellers) {
-            for (int j = 0; j < count; j++) {
+            for (int j = 0; j < muliplier; j++) {
                 patterns.add(new PricePatternsEntity(
                         "code " + i, "name " + i, null, "note " + i, seller.getId()));
                 i++;
@@ -233,7 +237,7 @@ public class DataGeneratorTest {
         pricePatternsRepository.saveAll(patterns);
         List<PricePatternsEntity> childPatterns = new ArrayList<>();
         for (PricePatternsEntity parent : patterns) {
-            for (int j = 0; j < count; j++) {
+            for (int j = 0; j < muliplier; j++) {
                 childPatterns.add(new PricePatternsEntity(
                         "code " + i, "name " + i, parent.getId(), "note " + i, parent.getSellerId()));
                 i++;
@@ -241,8 +245,7 @@ public class DataGeneratorTest {
         }
 
         pricePatternsRepository.saveAll(childPatterns);
-        patterns = pricePatternsRepository.findAll();
-        assertEquals(i, patterns.size());
+        System.out.println("Add PricePatternsEntity: " + i);
 
         i = 0;
         List<BuyersEntity> buyers = new ArrayList<>();
@@ -256,38 +259,38 @@ public class DataGeneratorTest {
         }
 
         buyersRepository.saveAll(buyers);
-        buyers = buyersRepository.findAll();
-        assertEquals(buyerCount, buyers.size());
+        System.out.println("Add BuyersEntity: " + buyerCount);
 
         i = 0;
         List<LogisticsPointsEntity> points = new ArrayList<>();
         for(OrganizationsEntity org : orgs) {
-            for(int j = 0; j < count; j++) {
+            for(int j = 0; j < muliplier; j++) {
                 points.add(new LogisticsPointsEntity(
                         "code " + i, "name " + i, "address " + i, org.getId()));
                 i++;
             }
         }
         logisticsPointsRepository.saveAll(points);
-        int pointsTotal = totalOrgCount * count;
-        points = logisticsPointsRepository.findAll();
-        assertEquals(pointsTotal, points.size());
+        int pointsTotal = totalOrgCount * muliplier;
+        System.out.println("Add LogisticsPointsEntity: " + pointsTotal);
 
         i = 0;
         List<ProductsTypesEntity> productTypes = new ArrayList<>();
-        for(int j = 0; j < count; j++) {
+        for(int j = 0; j < muliplier; j++) {
             productTypes.add(new ProductsTypesEntity("code " + i, "name " + i));
             i++;
         }
         productsTypesRepository.saveAll(productTypes);
+        System.out.println("Add ProductsTypesEntity: " + i);
 
         i = 0;
         List<UnitsEntity> units = new ArrayList<>();
-        for(int j = 0; j < count; j++) {
+        for(int j = 0; j < muliplier; j++) {
             units.add(new UnitsEntity("code " + i, "name " + i));
             i++;
         }
         unitsRepository.saveAll(units);
+        System.out.println("Add UnitsEntity: " + i);
 
         i = 0;
         List<ProductsEntity> products = new ArrayList<>();
@@ -295,7 +298,7 @@ public class DataGeneratorTest {
         for(SellersEntity seller : sellers) {
             for(ProductsTypesEntity productType : productTypes) {
                 for(UnitsEntity unit : units) {
-                    for(int j = 0; j < count; j++) {
+                    for(int j = 0; j < muliplier; j++) {
                         products.add(new ProductsEntity(
                                 "code " + i,
                                 "name " + i,
@@ -310,9 +313,9 @@ public class DataGeneratorTest {
             }
         }
         products = productsRepository.saveAll(products);
-        int productsCount = sellers.size() * units.size() * productTypes.size() * count;
-        assertEquals(productsCount, products.size());
-
+        int productsCount = sellers.size() * units.size() * productTypes.size() * muliplier;
+        System.out.println("Add UnitsEntity: " + productsCount);
+        List<DeliveryTypesEntity> deliveryTypes = deliveryTypesRepository.findAll();
         i = 0;
         List<OrdersEntity> orders = new ArrayList<>();
         for(OrderStatusesEntity orderStatus : orderStatuses) {
@@ -342,10 +345,10 @@ public class DataGeneratorTest {
             }
         }
         ordersRepository.saveAll(orders);
-        orders = ordersRepository.findAll();
-        assertEquals(i, orders.size());
+        System.out.println("Add OrdersEntity: " + i);
 
         i = 0;
+        List<UsersEntity> users = usersRepository.findAll();
         List<TraceOrdersEntity> traces = new ArrayList<>();
         Iterator<UsersEntity> userIterator = users.iterator();
         for(OrdersEntity order : orders) {
@@ -364,8 +367,7 @@ public class DataGeneratorTest {
             }
         }
         traceOrdersRepository.saveAll(traces);
-        traces = traceOrdersRepository.findAll();
-        assertEquals(i, traces.size());
+        System.out.println("Add TraceOrdersEntity: " + i);
 
         i = 0;
         List<OrdersProductsEntity> orderProducts = new ArrayList<>();
@@ -375,23 +377,22 @@ public class DataGeneratorTest {
             Collection<ProductsEntity> sellerProducts = productsRepository.findAllBySellerId(sellerId);
             Iterator<ProductsEntity> productsSellerIterator = sellerProducts.iterator();
             for (OrdersEntity order : sellerOrders) {
-                for (int j = 0; j < count; j++) {
+                for (int j = 0; j < muliplier; j++) {
                     if (!productsSellerIterator.hasNext()) {
                         productsSellerIterator = sellerProducts.iterator();
                     }
                     ProductsEntity product = productsSellerIterator.next();
                     orderProducts.add(new OrdersProductsEntity(
-                                BigDecimal.valueOf(rnd.nextInt(10) + 1),
-                                "note " + i,
-                                order.getId(),
-                                product.getId()));
+                            BigDecimal.valueOf(rnd.nextInt(10) + 1),
+                            "note " + i,
+                            order.getId(),
+                            product.getId()));
                     i++;
                 }
             }
         }
         ordersProductsRepository.saveAll(orderProducts);
-        orderProducts = ordersProductsRepository.findAll();
-        assertEquals(i, orderProducts.size());
+        System.out.println("Add OrdersProductsEntity: " + i);
 
         i = 0;
 
@@ -410,8 +411,7 @@ public class DataGeneratorTest {
             }
         }
         pricesRepository.saveAll(prices);
-        prices = pricesRepository.findAll();
-        assertEquals(i, prices.size());
+        System.out.println("Add PricesEntity: " + i);
 
         i = 0;
         List<ExternalLinksEntity> links = new ArrayList<>();
@@ -425,7 +425,8 @@ public class DataGeneratorTest {
         }
 
         externalLinksRepository.saveAll(links);
-        links = externalLinksRepository.findAll();
-        assertEquals(i, links.size());
+        System.out.println("Add ExternalLinksEntity: " + i);
+
+        System.out.println("Generate test data end.");
     }
 }
