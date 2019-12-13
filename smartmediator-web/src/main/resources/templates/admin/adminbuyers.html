@@ -1,0 +1,66 @@
+
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<body>
+<nav th:replace="admin/fragments/navup :: nav"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="admin/fragments/navleft :: nav"></nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+
+            <div class="container">
+                <br>
+                <form th:action="@{/admin/buyers/formCreateBuyer}" method="get">
+                    <button type="submit">Создать нового пользователя</button>
+                </form>
+                <br>
+                <input class="form-control" id="myInput" type="text" placeholder="Поиск по организации..">
+                <br>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Название организации</th>
+                        <th>Адрес организации</th>
+                        <th>Редактировать пользователя</th>
+                        <th>Удалить пользователя</th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    <tr th:each="organization: ${listOfOrganizations}">
+                        <td th:text="${organization.getFullName()}"/>
+                        <td th:text="${organization.getAddress()}"/>
+                        <td><a th:href= "@{${'/admin/buyers/' + organization.getId().toString()}}">Редактировать</a></td>
+                        <td><a th:href= "@{${'/admin/buyers/deleteUser/' + organization.getId().toString()}}">Удалить</a></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </main>
+    </div>
+</div>
+<footer th:replace="admin/fragments/footer :: footer"></footer>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+
+</script>
+
+</body>
+</html>
