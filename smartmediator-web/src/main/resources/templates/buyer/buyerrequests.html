@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="buyer/fragments/head :: head"></head>
+<body>
+<nav th:replace="admin/fragments/navup :: nav"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="buyer/fragments/navleft :: nav"></nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="container">
+
+
+                <h2>Заявки</h2>
+                <div class="inline">
+                    <select>
+                        <option disabled selected>Поставщик</option>
+                        <option value="Бахетле">Бахетле</option>
+                        <option value="Магнит">Магнит</option>
+                    </select>
+                    <select>
+                        <option disabled selected>Адрес доставки</option>
+                        <option value="Бахетле">Бахетле</option>
+                        <option value="Магнит">Магнит</option>
+                    </select>
+                    <br>
+                    <form th:action="@{/sendRequest}" method="get">
+                        <button type="button">Отправить заявку</button>
+                    </form>
+                    <br>
+                </div>
+
+
+                <h2>Действующие поставщики</h2>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Поставщик</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Ania</td>
+                    </tr>
+                    <tr>
+                        <td>Doe</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+</div>
+<footer th:replace="admin/fragments/footer :: footer"></footer>
+
+
+</body>
+</html>
