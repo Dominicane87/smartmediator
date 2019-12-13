@@ -23,14 +23,36 @@ public class AdminController {
 
     @GetMapping("/admin/orders")
     public String orders(Map<String, Object> model) {
-
-        return "admin/adminOrders";
+        List<OrganizationsEntity> listOfOrganizations = new ArrayList<>();
+        OrganizationsEntity userEntorganizationsEntity1 = new OrganizationsEntity();
+        OrganizationsEntity userEntorganizationsEntity2 = new OrganizationsEntity();
+        userEntorganizationsEntity1.setFullName("Vasia");
+        userEntorganizationsEntity1.setAddress("Люберцы");
+        userEntorganizationsEntity1.setId(new UUID(1,2));
+        userEntorganizationsEntity2.setId(new UUID(1,2));
+        userEntorganizationsEntity2.setFullName("Ania");
+        userEntorganizationsEntity2.setAddress("Mosckow");
+        listOfOrganizations.add(userEntorganizationsEntity1);
+        listOfOrganizations.add(userEntorganizationsEntity2);
+        model.put("listOfOrganizations",listOfOrganizations);
+        return "admin/adminorders";
     }
 
     @GetMapping("/admin/bids")
     public String bids(Map<String, Object> model) {
-
-        return "admin/adminBids";
+        List<OrganizationsEntity> listOfOrganizations = new ArrayList<>();
+        OrganizationsEntity userEntorganizationsEntity1 = new OrganizationsEntity();
+        OrganizationsEntity userEntorganizationsEntity2 = new OrganizationsEntity();
+        userEntorganizationsEntity1.setFullName("Vasia");
+        userEntorganizationsEntity1.setAddress("Люберцы");
+        userEntorganizationsEntity1.setId(new UUID(1,2));
+        userEntorganizationsEntity2.setId(new UUID(1,2));
+        userEntorganizationsEntity2.setFullName("Ania");
+        userEntorganizationsEntity2.setAddress("Mosckow");
+        listOfOrganizations.add(userEntorganizationsEntity1);
+        listOfOrganizations.add(userEntorganizationsEntity2);
+        model.put("listOfOrganizations",listOfOrganizations);
+        return "admin/adminbids";
     }
 
     @GetMapping("/admin/buyers")
