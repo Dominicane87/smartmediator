@@ -7,15 +7,12 @@ CREATE TABLE users
     password varchar(255) NOT NULL CHECK (length(password) > 0),
     username varchar(255) NOT NULL CHECK (length(username) > 0),
     status   UUID         NOT NULL,
---     role     UUID         NOT NULL,
     active   boolean      NOT NULL,
     CONSTRAINT pk_users UNIQUE (id),
     CONSTRAINT uq_users_email UNIQUE (email),
     CONSTRAINT uq_users_username UNIQUE (username),
     CONSTRAINT fk_users_status FOREIGN KEY (status) REFERENCES user_statuses (id)
         ON DELETE RESTRICT ON UPDATE RESTRICT
---     CONSTRAINT fk_users_role FOREIGN KEY (role) REFERENCES roles (id)
---         ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
 CREATE INDEX idx_users_username ON users (username);

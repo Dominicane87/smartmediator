@@ -13,8 +13,6 @@ import stc21.smartmediator.repository.UserStatusesRepository;
 public class UserServiceImpl implements UserService {
 
     private UsersRepository repository;
-    private RolesRepository rolesRepository;
-    private UserStatusesRepository userStatusesRepository;
 
     @Autowired
     public UserServiceImpl(UsersRepository repository) {
@@ -23,7 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        UsersEntity user = repository.findByUsername(username);
+        return user;
     }
 
 //    @Override

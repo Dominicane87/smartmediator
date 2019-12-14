@@ -214,9 +214,9 @@ public class TestDataGenerator {
                 for (int j = 0; j < muliplier; j++) {
 
                     UsersEntity usersEntityTemp = new UsersEntity(
-                            "email " + i,
-                            "password hash" + i,
-                            "full name" + i,
+                            "email_" + i,
+                            "123",
+                            "name" + i,
                             userStatus.getId(),
                             true);
 
