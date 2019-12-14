@@ -1,5 +1,6 @@
 package stc21.smartmediator.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import stc21.smartmediator.entity.OrganizationsEntity;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
+@PreAuthorize("hasAuthority('BUYER')")
 public class BuyerController {
 
     @GetMapping("/buyer")

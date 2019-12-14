@@ -164,7 +164,7 @@ public class TestDataGenerator {
         r = new RolesEntity("admin", "Администратор");
         rolesRepository.save(r);
 
-        System.out.println("Add RolesEntity: 2" );
+        System.out.println("Add RolesEntity: 2");
 
         List<OrderStatusesEntity> orderStatuses = new ArrayList<>();
         orderStatuses.add(new OrderStatusesEntity("draft", "Черновик"));
@@ -222,10 +222,12 @@ public class TestDataGenerator {
 
                     UsersEntity newUser = usersRepository.save(usersEntityTemp);
                     usersOrganizations.add(new UsersOrganizationsEntity(newUser.getId(), org.getId()));
-                    if(i % 2 == 0){
-                        usersRolesRepository.save(new UsersRolesEntity(newUser.getId(),"ADMIN"));
-                    }else{
-                        usersRolesRepository.save(new UsersRolesEntity(newUser.getId(),"USER"));
+                    if (i % 3 == 0) {
+                        usersRolesRepository.save(new UsersRolesEntity(newUser.getId(), "ADMIN"));
+                    } else if (i % 3 == 1) {
+                        usersRolesRepository.save(new UsersRolesEntity(newUser.getId(), "SELLER"));
+                    } else {
+                        usersRolesRepository.save(new UsersRolesEntity(newUser.getId(), "BUYER"));
                     }
                     i++;
                 }
@@ -276,8 +278,8 @@ public class TestDataGenerator {
 
         i = 0;
         List<LogisticsPointsEntity> points = new ArrayList<>();
-        for(OrganizationsEntity org : orgs) {
-            for(int j = 0; j < muliplier; j++) {
+        for (OrganizationsEntity org : orgs) {
+            for (int j = 0; j < muliplier; j++) {
                 points.add(new LogisticsPointsEntity(
                         "code " + i, "name " + i, "address " + i, org.getId()));
                 i++;
@@ -289,7 +291,7 @@ public class TestDataGenerator {
 
         i = 0;
         List<ProductsTypesEntity> productTypes = new ArrayList<>();
-        for(int j = 0; j < muliplier; j++) {
+        for (int j = 0; j < muliplier; j++) {
             productTypes.add(new ProductsTypesEntity("code " + i, "name " + i));
             i++;
         }
@@ -298,7 +300,7 @@ public class TestDataGenerator {
 
         i = 0;
         List<UnitsEntity> units = new ArrayList<>();
-        for(int j = 0; j < muliplier; j++) {
+        for (int j = 0; j < muliplier; j++) {
             units.add(new UnitsEntity("code " + i, "name " + i));
             i++;
         }
@@ -308,10 +310,10 @@ public class TestDataGenerator {
         i = 0;
         List<ProductsEntity> products = new ArrayList<>();
         Random rnd = new Random();
-        for(SellersEntity seller : sellers) {
-            for(ProductsTypesEntity productType : productTypes) {
-                for(UnitsEntity unit : units) {
-                    for(int j = 0; j < muliplier; j++) {
+        for (SellersEntity seller : sellers) {
+            for (ProductsTypesEntity productType : productTypes) {
+                for (UnitsEntity unit : units) {
+                    for (int j = 0; j < muliplier; j++) {
                         products.add(new ProductsEntity(
                                 "code " + i,
                                 "name " + i,
@@ -332,16 +334,16 @@ public class TestDataGenerator {
         List<DeliveryTypesEntity> deliveryTypes = deliveryTypesRepository.findAll();
         i = 0;
         List<OrdersEntity> orders = new ArrayList<>();
-        for(OrderStatusesEntity orderStatus : orderStatuses) {
-            for(DeliveryTypesEntity delivery : deliveryTypes) {
-                for(SellersEntity seller : sellers) {
-                    for(BuyersEntity buyer : buyers) {
+        for (OrderStatusesEntity orderStatus : orderStatuses) {
+            for (DeliveryTypesEntity delivery : deliveryTypes) {
+                for (SellersEntity seller : sellers) {
+                    for (BuyersEntity buyer : buyers) {
                         Collection<LogisticsPointsEntity> sources =
                                 logisticsPointsRepository.findByOrgId(seller.getOrgId());
                         Collection<LogisticsPointsEntity> destinations =
                                 logisticsPointsRepository.findByOrgId(buyer.getOrgId());
-                        for(LogisticsPointsEntity source : sources) {
-                            for(LogisticsPointsEntity destination : destinations) {
+                        for (LogisticsPointsEntity source : sources) {
+                            for (LogisticsPointsEntity destination : destinations) {
                                 orders.add(new OrdersEntity(
                                         "note " + i,
                                         orderStatus.getId(),
@@ -365,9 +367,9 @@ public class TestDataGenerator {
         List<UsersEntity> users = usersRepository.findAll();
         List<TraceOrdersEntity> traces = new ArrayList<>();
         Iterator<UsersEntity> userIterator = users.iterator();
-        for(OrdersEntity order : orders) {
-            for(OrderStatusesEntity status : orderStatuses) {
-                if(!userIterator.hasNext()) {
+        for (OrdersEntity order : orders) {
+            for (OrderStatusesEntity status : orderStatuses) {
+                if (!userIterator.hasNext()) {
                     userIterator = users.iterator();
                 }
 
@@ -375,7 +377,7 @@ public class TestDataGenerator {
                 traces.add(new TraceOrdersEntity(
                         "note " + i, status.getId(), user.getId(), order.getId()));
                 i++;
-                if(status.getId().equals(order.getStatusId())) {
+                if (status.getId().equals(order.getStatusId())) {
                     break;
                 }
             }
@@ -385,7 +387,7 @@ public class TestDataGenerator {
 
         i = 0;
         List<OrdersProductsEntity> orderProducts = new ArrayList<>();
-        for(SellersEntity seller : sellers) {
+        for (SellersEntity seller : sellers) {
             UUID sellerId = seller.getId();
             Collection<OrdersEntity> sellerOrders = ordersRepository.findAllBySellerId(sellerId);
             Collection<ProductsEntity> sellerProducts = productsRepository.findAllBySellerId(sellerId);
@@ -411,13 +413,13 @@ public class TestDataGenerator {
         i = 0;
 
         List<PricesEntity> prices = new ArrayList<>();
-        for(SellersEntity seller : sellers) {
+        for (SellersEntity seller : sellers) {
             UUID sellerId = seller.getId();
             Collection<PricePatternsEntity> sellerPatterns = pricePatternsRepository.findBySellerId(sellerId);
             Collection<ProductsEntity> sellerProducts = productsRepository.findAllBySellerId(sellerId);
 
-            for(PricePatternsEntity pattern : sellerPatterns) {
-                for(ProductsEntity product : sellerProducts) {
+            for (PricePatternsEntity pattern : sellerPatterns) {
+                for (ProductsEntity product : sellerProducts) {
                     BigDecimal cost = BigDecimal.valueOf(rnd.nextInt() * 100 + 1);
                     prices.add(new PricesEntity(cost, product.getId(), pattern.getId()));
                     i++;
@@ -429,10 +431,10 @@ public class TestDataGenerator {
 
         i = 0;
         List<ExternalLinksEntity> links = new ArrayList<>();
-        for(SellersEntity seller : sellers) {
+        for (SellersEntity seller : sellers) {
             UUID sellerId = seller.getId();
             Collection<ProductsEntity> sellerProducts = productsRepository.findAllBySellerId(sellerId);
-            for(ProductsEntity product : sellerProducts) {
+            for (ProductsEntity product : sellerProducts) {
                 links.add(new ExternalLinksEntity("code " + i, sellerId, product.getId()));
                 i++;
             }
