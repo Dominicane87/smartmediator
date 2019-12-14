@@ -74,12 +74,12 @@ public class UserController {
 //
 //        String password = body.get("password_hash");
 //        if(password != null) {
-//            user.setPasswordHash(password);
+//            user.setPassword(password);
 //        }
 //
 //        String name = body.get("full_name");
 //        if(name != null) {
-//            user.setFullName(name);
+//            user.setUsername(name);
 //        }
 //
 //        String status = body.get("status");

@@ -100,12 +100,12 @@ public class User {
 
         String password = fields.get(passwordHashFieldName);
         if(password != null) {
-            user.setPasswordHash(password);
+            user.setPassword(password);
         }
 
         String name = fields.get(fullNameFieldName);
         if(name != null) {
-            user.setFullName(name);
+            user.setUsername(name);
         }
 
         String status = fields.get(statusFieldName);

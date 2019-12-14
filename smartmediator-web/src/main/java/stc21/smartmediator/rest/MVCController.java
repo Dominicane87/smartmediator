@@ -49,7 +49,7 @@
 //        try {
 //            final Optional<User> user = userRepository.findById(id);
 //            Map<String, Object> model = new HashMap<>();
-//            model.put("message", format(valueOf(Locale.forLanguageTag("Hello %s!!!")), user.orElseThrow(() -> new RuntimeException("User not found!!!")).getFullName()));
+//            model.put("message", format(valueOf(Locale.forLanguageTag("Hello %s!!!")), user.orElseThrow(() -> new RuntimeException("User not found!!!")).getUsername()));
 //            return new ModelAndView("home", model);
 //        } catch (Exception e) {
 //            return new ModelAndView("error", new HashMap<String, Object>() {{

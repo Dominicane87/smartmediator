@@ -9,16 +9,16 @@ import java.util.UUID;
 public class UsersEntity {
     private UUID id;
     private String email;
-    private String passwordHash;
-    private String fullName;
+    private String password;
+    private String username;
     private UUID role;
     private UUID status;
     private Boolean active;
 
     public UsersEntity(String email, String password_hash, String full_name, UUID role_id, UUID status_id, Boolean active) {
         this.email = email;
-        this.passwordHash = password_hash;
-        this.fullName = full_name;
+        this.password = password_hash;
+        this.username = full_name;
         this.role = role_id;
         this.status = status_id;
         this.active = active;
@@ -51,12 +51,12 @@ public class UsersEntity {
 
     @Basic
     @Column(name = "password")
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPassword(String passwordHash) {
+        this.password = passwordHash;
     }
 
     @Column(name = "role")
@@ -75,12 +75,12 @@ public class UsersEntity {
 
     @Basic
     @Column(name = "username")
-    public String getFullName() {
-        return fullName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUsername(String fullName) {
+        this.username = fullName;
     }
 
     @Basic
@@ -100,12 +100,12 @@ public class UsersEntity {
         UsersEntity that = (UsersEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(email, that.email) &&
-                Objects.equals(passwordHash, that.passwordHash) &&
-                Objects.equals(fullName, that.fullName);
+                Objects.equals(password, that.password) &&
+                Objects.equals(username, that.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, passwordHash, fullName);
+        return Objects.hash(id, email, password, username);
     }
 }

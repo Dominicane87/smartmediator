@@ -60,7 +60,7 @@ public class OrganizationController {
 //
 //        String full_name = body.get("full_name");
 //        if(full_name != null) {
-//            organization.setFullName(full_name);
+//            organization.setUsername(full_name);
 //        }
 //
 //        String name = body.get("name");

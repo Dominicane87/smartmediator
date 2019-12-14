@@ -2,8 +2,7 @@ package stc21.smartmediator.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-//public interface UserService extends UserDetailsService {
-public interface UserService {
+public interface UserService extends UserDetailsService {
 //    List<UsersEntity> findAll();
 
 //    UsersEntity findById(String uuid);
