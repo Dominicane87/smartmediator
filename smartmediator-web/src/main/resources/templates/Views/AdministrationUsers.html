@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="#">Пользователи</a></li>
+        <li><a href="#">Заказы</a></li>
+    </ul>
+</div>
+<br>
+<br>
+
+
+<div class="container">
+    <form th:action="@{/newUser}" method="post" >
+        <button type="submit">Создать нового пользователя</button>
+    </form>
+    <br>
+    <input class="form-control" id="myInput" type="text" placeholder="Поиск по организации..">
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Название организации</th>
+            <th>Адрес организации</th>
+            <th>Тип пользователя</th>
+            <th>Редактировать пользователя</th>
+            <th>Удалить пользователя</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        <tr >
+
+            <td>Ania</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+            <td><form th:action="@{/editUser}" method="post" >
+                <button type="submit">Редактировать</button>
+            </form></td>
+            <td><form th:action="@{/deleteUser}" method="post" >
+                <button type="button" onclick="deleteRow(this)">Удалить</button>
+            </form></td>
+        </tr>
+        <tr >
+            <td>Vasia</td>
+            <td>Adfge</td>
+            <td>john@example.com</td>
+            <td><form th:action="@{/editUser}" method="post" >
+                <button type="submit">Редактировать</button>
+            </form></td>
+            <td><form th:action="@{/deleteUser}" method="post" >
+                <button type="button" onclick="deleteRow(this)">Удалить</button>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+
+</script>
+
+<script type="text/javascript">
+    function deleteRow(r)
+    {
+        var i=r.parentNode.parentNode.rowIndex;
+        document.getElementById('myTable').deleteRow(i);
+    }
+</script>
+
+</body>
+
+
+</html>
