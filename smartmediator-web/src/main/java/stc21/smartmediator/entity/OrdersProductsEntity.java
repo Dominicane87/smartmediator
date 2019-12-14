@@ -27,6 +27,7 @@ public class OrdersProductsEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

@@ -25,7 +25,8 @@ public class Organization {
     private final LogisticsPointsRepository logisticsPointsRepository;
     private final PricePatternsRepository pricePatternsRepository;
     private final Seller seller;
-    private final BuyersRepository buyersRepository;
+    private final Buyer buyer;
+    private final Order order;
 
     @Autowired
     public Organization(OrganizationsRepository repository,
@@ -34,14 +35,15 @@ public class Organization {
                         LogisticsPointsRepository logisticsPointsRepository,
                         PricePatternsRepository pricePatternsRepository,
                         Seller seller,
-                        BuyersRepository buyersRepository) {
+                        Buyer buyer, Order order) {
         this.repository = repository;
         this.usersOrgRepository = userOrgRepository;
         this.orgStatusesRepository = orgStatusesRepository;
         this.logisticsPointsRepository = logisticsPointsRepository;
         this.pricePatternsRepository = pricePatternsRepository;
         this.seller = seller;
-        this.buyersRepository = buyersRepository;
+        this.buyer = buyer;
+        this.order = order;
     }
 
     private UUID newOrgStatusId;
@@ -112,9 +114,10 @@ public class Organization {
 
     @Transactional
     public void delete(UUID id) {
+        buyer.deleteAllByOrgId(id);
+        seller.deleteAllByOrgId(id);
         usersOrgRepository.deleteAllByOrgId(id);
         logisticsPointsRepository.deleteAllByOrgId(id);
-        seller.deleteAllByOrgId(id);
         repository.deleteById(id);
     }
 }

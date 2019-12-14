@@ -17,4 +17,5 @@ public interface UserStatusesRepository extends JpaRepository<UserStatusesEntity
     }
 
     UserStatusesEntity findByCode(String code);
+
 }

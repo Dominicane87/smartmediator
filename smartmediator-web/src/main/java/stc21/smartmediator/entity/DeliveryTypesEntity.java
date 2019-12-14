@@ -11,8 +11,18 @@ public class DeliveryTypesEntity {
     private String code;
     private String name;
 
+    public DeliveryTypesEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public DeliveryTypesEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

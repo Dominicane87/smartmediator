@@ -1,0 +1,26 @@
+
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="buyer/fragments/head :: head"></head>
+<body>
+<nav th:replace="admin/fragments/navup :: nav"></nav>
+
+<div class="container-fluid">
+   <div class="row">
+      <nav th:replace="buyer/fragments/navleft :: nav"></nav>
+
+      <main role="main" class="col-md-8 ml-sm-auto col-lg-8 px-4">
+         <div class="container">
+            <h2>Молоко коровье наше здоровье, сало и жир вот мой кумир!</h2>
+            <img th:src="@{images/cow.jpg}" alt="КОРОВА" style="width:100%"/>
+         </div>
+
+
+
+      </main>
+   </div>
+
+</div>
+<footer th:replace="admin/fragments/footer :: footer"></footer>
+</body>
+</html>

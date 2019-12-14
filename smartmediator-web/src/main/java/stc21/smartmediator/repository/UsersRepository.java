@@ -1,5 +1,6 @@
 package stc21.smartmediator.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import stc21.smartmediator.entity.UsersEntity;
@@ -10,9 +11,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UsersRepository extends CrudRepository<UsersEntity, UUID> {
+public interface UsersRepository extends JpaRepository<UsersEntity, UUID> {
 
-    // some custom queries
+    UsersEntity findByUsername(String username);
 
     Optional<UsersEntity> findByEmail(String email);
 

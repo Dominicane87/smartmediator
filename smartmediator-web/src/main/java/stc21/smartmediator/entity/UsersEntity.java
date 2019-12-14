@@ -1,34 +1,60 @@
 package stc21.smartmediator.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "postgres")
-public class UsersEntity {
+public class UsersEntity implements UserDetails {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private UUID id;
+
+    @Basic
+    @Column(name = "email")
     private String email;
-    private String passwordHash;
-    private String fullName;
-    private UUID role;
+
+    @Basic
+    @Column(name = "password")
+    private String password;
+
+    @Basic
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "status")
     private UUID status;
 
-    public UsersEntity(String email, String password_hash, String full_name, UUID role_id, UUID status_id) {
-        this.email = email;
-        this.passwordHash = password_hash;
-        this.fullName = full_name;
-        this.role = role_id;
-        this.status = status_id;
-    }
+    @Basic
+    @Column(name = "active")
+    private Boolean active;
+
+    @ElementCollection(targetClass = RolesEnumEntity.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<RolesEnumEntity> roles;
 
     public UsersEntity() {
 
     }
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    public UsersEntity(String email, String password_hash,
+                       String full_name,
+                       UUID status_id, Boolean active) {
+        this.email = email;
+        this.password = password_hash;
+        this.username = full_name;
+        this.status = status_id;
+        this.active = active;
+    }
+
     public UUID getId() {
         return id;
     }
@@ -37,8 +63,6 @@ public class UsersEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -47,38 +71,71 @@ public class UsersEntity {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "password_hash")
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPassword(String passwordHash) {
+        this.password = passwordHash;
     }
 
-    @Column(name = "role")
-    public UUID getRole() {
-        return role;
-    }
-
-    public void setRole(UUID value) { role = value; }
-
-    @Column(name = "status")
     public UUID getStatus() {
         return status;
     }
 
     public void setStatus(UUID value) { status = value; }
 
-    @Basic
-    @Column(name = "full_name")
-    public String getFullName() {
-        return fullName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUsername(String fullName) {
+        this.username = fullName;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Set<RolesEnumEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RolesEnumEntity> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isAdmin() {
+        return roles.contains(RolesEnumEntity.ADMIN);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override
@@ -88,12 +145,12 @@ public class UsersEntity {
         UsersEntity that = (UsersEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(email, that.email) &&
-                Objects.equals(passwordHash, that.passwordHash) &&
-                Objects.equals(fullName, that.fullName);
+                Objects.equals(password, that.password) &&
+                Objects.equals(username, that.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, passwordHash, fullName);
+        return Objects.hash(id, email, password, username);
     }
 }

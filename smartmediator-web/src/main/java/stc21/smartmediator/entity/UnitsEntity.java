@@ -12,8 +12,18 @@ public class UnitsEntity {
     private String name;
     private Boolean deleted;
 
+    public UnitsEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public UnitsEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

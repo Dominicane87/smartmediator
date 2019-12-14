@@ -54,7 +54,7 @@ public class OrderProduct {
     }
 
     @Transactional
-    public int deleteByProductId(UUID productId) {
+    public int deleteAllByProductId(UUID productId) {
         Collection<OrdersProductsEntity> ordersProducts = repository.findAllByProductId(productId);
         ordersProducts.forEach(
                 x -> delete(x.getId()));

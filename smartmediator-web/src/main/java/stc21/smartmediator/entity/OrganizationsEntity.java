@@ -34,7 +34,7 @@ public class OrganizationsEntity {
         return id;
     }
 
-    private void setId(UUID id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

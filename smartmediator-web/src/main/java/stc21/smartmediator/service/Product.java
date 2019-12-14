@@ -21,12 +21,14 @@ public class Product {
     private final ProductsRepository repository;
     private final OrderProduct orderProduct;
     private final ExternalLink externalLink;
+    private final Price price;
 
     @Autowired
-    public Product(ProductsRepository repository, OrderProduct orderProduct, ExternalLink externalLink) {
+    public Product(ProductsRepository repository, OrderProduct orderProduct, ExternalLink externalLink, Price price) {
         this.repository = repository;
         this.orderProduct = orderProduct;
         this.externalLink = externalLink;
+        this.price = price;
     }
 
     public ProductsEntity create(String code,
@@ -96,8 +98,9 @@ public class Product {
 
     @Transactional
     public void delete(UUID id) {
-        orderProduct.deleteByProductId(id);
-        externalLink.deleteByProductId(id);
+        price.deleteAllByProductId(id);
+        orderProduct.deleteAllByProductId(id);
+        externalLink.deleteAllByProductId(id);
         repository.deleteById(id);
     }
 }

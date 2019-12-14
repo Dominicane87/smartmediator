@@ -11,8 +11,18 @@ public class OrgStatusesEntity {
     private String code;
     private String name;
 
+    public OrgStatusesEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public OrgStatusesEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

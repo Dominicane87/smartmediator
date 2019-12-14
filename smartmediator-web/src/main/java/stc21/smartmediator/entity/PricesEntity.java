@@ -1,5 +1,7 @@
 package stc21.smartmediator.entity;
 
+import org.postgresql.util.PGmoney;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -25,6 +27,7 @@ public class PricesEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

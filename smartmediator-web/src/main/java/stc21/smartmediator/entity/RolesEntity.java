@@ -11,8 +11,18 @@ public class RolesEntity {
     private String code;
     private String name;
 
+    public RolesEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public RolesEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public UUID getId() {
         return id;
     }

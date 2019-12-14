@@ -65,7 +65,7 @@ public class User {
                               String passwordHash,
                               String name,
                               Collection<OrganizationsEntity> organizations) {
-        UsersEntity newUser = new UsersEntity(email, passwordHash, name, getUserRoleId(), getNewStatusId());
+        UsersEntity newUser = new UsersEntity(email, passwordHash, name, getNewStatusId(), true);
         List<UUID> orgIds = organizations.stream().map(x -> x.getId()).collect(Collectors.toList());
         return repository.save(newUser, orgIds, userOrgRepository);
     }
@@ -100,12 +100,12 @@ public class User {
 
         String password = fields.get(passwordHashFieldName);
         if(password != null) {
-            user.setPasswordHash(password);
+            user.setPassword(password);
         }
 
         String name = fields.get(fullNameFieldName);
         if(name != null) {
-            user.setFullName(name);
+            user.setUsername(name);
         }
 
         String status = fields.get(statusFieldName);

@@ -3,7 +3,8 @@
 CREATE TABLE prices
 (
     id               UUID  NOT NULL PRIMARY KEY DEFAULT uuid_generate_v1mc(),
-    cost             money not null             DEFAULT 0,
+    --cost             money not null             DEFAULT 0,
+    cost             NUMERIC(15,2) not null DEFAULT 0,
     product_id       UUID  NOT NULL,
     price_pattern_id UUID  NOT NULL,
     CONSTRAINT pk_prices UNIQUE (id),

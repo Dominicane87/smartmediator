@@ -8,14 +8,17 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
-
+    private static final String POSTGRESQL_DRIVER = "org.postgresql.Driver";
+    private static final String url = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String nameOfDatabase = "postgres";
+    private static final String password = "123";
     @Bean
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
-        dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("123");
+        dataSourceBuilder.driverClassName(POSTGRESQL_DRIVER);
+        dataSourceBuilder.url(url);
+        dataSourceBuilder.username(nameOfDatabase);
+        dataSourceBuilder.password(password);
         return dataSourceBuilder.build();
     }
 }
