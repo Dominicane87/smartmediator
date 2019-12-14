@@ -70,7 +70,10 @@ public class TestDataGenerator {
     @Autowired
     private final ExternalLinksRepository externalLinksRepository;
 
-    public TestDataGenerator(OrgStatusesRepository orgStatusesRepository, OrganizationsRepository organizationsRepository, SellersRepository sellersRepository, RolesRepository rolesRepository, OrderStatusesRepository orderStatusesRepository, DeliveryTypesRepository deliveryTypesRepository, UserStatusesRepository userStatusesRepository, UsersRepository usersRepository, UsersOrganizationsRepository usersOrganizationsRepository, PricePatternsRepository pricePatternsRepository, BuyersRepository buyersRepository, LogisticsPointsRepository logisticsPointsRepository, ProductsTypesRepository productsTypesRepository, UnitsRepository unitsRepository, ProductsRepository productsRepository, OrdersRepository ordersRepository, TraceOrdersRepository traceOrdersRepository, OrdersProductsRepository ordersProductsRepository, PricesRepository pricesRepository, ExternalLinksRepository externalLinksRepository) {
+    @Autowired
+    private UsersRolesRepository usersRolesRepository;
+
+    public TestDataGenerator(OrgStatusesRepository orgStatusesRepository, OrganizationsRepository organizationsRepository, SellersRepository sellersRepository, RolesRepository rolesRepository, OrderStatusesRepository orderStatusesRepository, DeliveryTypesRepository deliveryTypesRepository, UserStatusesRepository userStatusesRepository, UsersRepository usersRepository, UsersOrganizationsRepository usersOrganizationsRepository, PricePatternsRepository pricePatternsRepository, BuyersRepository buyersRepository, LogisticsPointsRepository logisticsPointsRepository, ProductsTypesRepository productsTypesRepository, UnitsRepository unitsRepository, ProductsRepository productsRepository, OrdersRepository ordersRepository, TraceOrdersRepository traceOrdersRepository, OrdersProductsRepository ordersProductsRepository, PricesRepository pricesRepository, ExternalLinksRepository externalLinksRepository, UsersRolesRepository usersRolesRepository) {
         this.orgStatusesRepository = orgStatusesRepository;
         this.organizationsRepository = organizationsRepository;
         this.sellersRepository = sellersRepository;
@@ -91,6 +94,7 @@ public class TestDataGenerator {
         this.ordersProductsRepository = ordersProductsRepository;
         this.pricesRepository = pricesRepository;
         this.externalLinksRepository = externalLinksRepository;
+        this.usersRolesRepository = usersRolesRepository;
     }
 
     private ArrayList<OrganizationsEntity> getOrgs(List<OrgStatusesEntity> statuses, int count, int i) {
@@ -130,6 +134,7 @@ public class TestDataGenerator {
         deliveryTypesRepository.deleteAll();
         unitsRepository.deleteAll();
         productsTypesRepository.deleteAll();
+        usersRolesRepository.deleteAll();
     }
 
     public void createData(int multiplier) {
@@ -212,8 +217,14 @@ public class TestDataGenerator {
                             "password hash" + i,
                             "full name" + i,
                             userRoleId,
-                            userStatus.getId()));
+                            userStatus.getId(),
+                            true));
                     usersOrganizations.add(new UsersOrganizationsEntity(newUser.getId(), org.getId()));
+                    if(i % 2 == 0){
+                        usersRolesRepository.save(new UsersRolesEntity(newUser.getId(),"ADMIN"));
+                    }else{
+                        usersRolesRepository.save(new UsersRolesEntity(newUser.getId(),"USER"));
+                    }
                     i++;
                 }
             }
@@ -312,6 +323,7 @@ public class TestDataGenerator {
                 }
             }
         }
+
         products = productsRepository.saveAll(products);
         int productsCount = sellers.size() * units.size() * productTypes.size() * muliplier;
         System.out.println("Add UnitsEntity: " + productsCount);

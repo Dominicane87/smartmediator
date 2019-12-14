@@ -1,13 +1,17 @@
 package stc21.smartmediator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import stc21.smartmediator.entity.UsersEntity;
 import stc21.smartmediator.repository.RolesRepository;
 import stc21.smartmediator.repository.UsersRepository;
 import stc21.smartmediator.repository.UserStatusesRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+//public class UserServiceImpl implements UserService {
+public class UserServiceImpl {
 
     private UsersRepository repository;
     private RolesRepository rolesRepository;
@@ -16,9 +20,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserServiceImpl(UsersRepository repository) {
         this.repository = repository;
-        this.rolesRepository = rolesRepository;
-        this.userStatusesRepository = userStatusesRepository;
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+//
+//        UsersEntity user = repository.findByUsername(s);
+//        return user;
+//    }
 
 //    @Override
 //    public List<UsersEntity> findAll() {
@@ -70,4 +79,4 @@ public class UserServiceImpl implements UserService {
 //        }
 //
 //        return Optional.empty();
-    }
+}

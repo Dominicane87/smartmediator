@@ -1,5 +1,8 @@
 package stc21.smartmediator.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+//public interface UserService extends UserDetailsService {
 public interface UserService {
 //    List<UsersEntity> findAll();
 

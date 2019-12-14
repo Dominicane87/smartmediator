@@ -50,7 +50,7 @@ public class UsersRepositoryTest {
         UUID status_id = userStatusesRepository.findByCode("new").getId();
         UUID role_id = rolesRepository.findByCode("user").getId();
         UsersEntity newUser = new UsersEntity(
-                UUID.randomUUID() + "test", "test", "userSaveTest", role_id, status_id);
+                UUID.randomUUID() + "test", "test", "userSaveTest", role_id, status_id, true);
         ArrayList<UUID> orgIds = new ArrayList<>();
         orgRepository.findAll().forEach(x -> orgIds.add(x.getId()));
         UUID user_id = repository.save(newUser, orgIds, userOrgRepository).getId();
@@ -83,7 +83,7 @@ public class UsersRepositoryTest {
                 "test",
                 "userSaveWrongOrganizationTest",
                 role_id,
-                status_id);
+                status_id, true);
         List<UUID> orgIds =  Collections.singletonList(UUID.randomUUID());
 
         try {

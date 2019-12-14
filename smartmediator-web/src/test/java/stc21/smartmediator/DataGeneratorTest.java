@@ -79,6 +79,9 @@ public class DataGeneratorTest {
     @Autowired
     private ExternalLinksRepository externalLinksRepository;
 
+    @Autowired
+    private UsersRolesRepository usersRolesRepository;
+
     private ArrayList<OrganizationsEntity> getOrgs(List<OrgStatusesEntity> statuses, int count, int i) {
         ArrayList<OrganizationsEntity> orgs = new ArrayList<>();
         for (OrgStatusesEntity status : Collections.unmodifiableList(statuses)) {
@@ -115,6 +118,7 @@ public class DataGeneratorTest {
         deliveryTypesRepository.deleteAll();
         unitsRepository.deleteAll();
         productsTypesRepository.deleteAll();
+        usersRolesRepository.deleteAll();
 
         OrgStatusesEntity os = new OrgStatusesEntity("new", "Новая");
         OrgStatusesEntity newOrgStatus = orgStatusesRepository.save(os);
@@ -204,9 +208,11 @@ public class DataGeneratorTest {
                             "password hash" + i,
                             "full name" + i,
                             userRoleId,
-                            userStatus.getId()));
+                            userStatus.getId(),
+                            true));
                     usersOrganizations.add(new UsersOrganizationsEntity(newUser.getId(), org.getId()));
                     i++;
+                    usersRolesRepository.save(new UsersRolesEntity(newUser.getId(),"ADMIN"));
                 }
             }
         }

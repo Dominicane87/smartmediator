@@ -65,7 +65,7 @@ public class User {
                               String passwordHash,
                               String name,
                               Collection<OrganizationsEntity> organizations) {
-        UsersEntity newUser = new UsersEntity(email, passwordHash, name, getUserRoleId(), getNewStatusId());
+        UsersEntity newUser = new UsersEntity(email, passwordHash, name, getUserRoleId(), getNewStatusId(), true);
         List<UUID> orgIds = organizations.stream().map(x -> x.getId()).collect(Collectors.toList());
         return repository.save(newUser, orgIds, userOrgRepository);
     }
