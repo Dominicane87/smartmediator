@@ -11,15 +11,18 @@ public class UsersEntity {
     private String email;
     private String password;
     private String username;
-    private UUID role;
+//    private UUID role;
     private UUID status;
     private Boolean active;
 
-    public UsersEntity(String email, String password_hash, String full_name, UUID role_id, UUID status_id, Boolean active) {
+    public UsersEntity(String email, String password_hash,
+                       String full_name,
+//                       UUID role_id,
+                       UUID status_id, Boolean active) {
         this.email = email;
         this.password = password_hash;
         this.username = full_name;
-        this.role = role_id;
+//        this.role = role_id;
         this.status = status_id;
         this.active = active;
     }
@@ -59,12 +62,12 @@ public class UsersEntity {
         this.password = passwordHash;
     }
 
-    @Column(name = "role")
-    public UUID getRole() {
-        return role;
-    }
-
-    public void setRole(UUID value) { role = value; }
+//    @Column(name = "role")
+//    public UUID getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(UUID value) { role = value; }
 
     @Column(name = "status")
     public UUID getStatus() {

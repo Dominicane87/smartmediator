@@ -207,7 +207,7 @@ public class DataGeneratorTest {
                             "email " + i,
                             "password hash" + i,
                             "full name" + i,
-                            userRoleId,
+//                            userRoleId,
                             userStatus.getId(),
                             true));
                     usersOrganizations.add(new UsersOrganizationsEntity(newUser.getId(), org.getId()));

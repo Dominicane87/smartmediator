@@ -212,13 +212,15 @@ public class TestDataGenerator {
         for (UserStatusesEntity userStatus : userStatuses) {
             for (OrganizationsEntity org : orgs) {
                 for (int j = 0; j < muliplier; j++) {
-                    UsersEntity newUser = usersRepository.save(new UsersEntity(
+
+                    UsersEntity usersEntityTemp = new UsersEntity(
                             "email " + i,
                             "password hash" + i,
                             "full name" + i,
-                            userRoleId,
                             userStatus.getId(),
-                            true));
+                            true);
+
+                    UsersEntity newUser = usersRepository.save(usersEntityTemp);
                     usersOrganizations.add(new UsersOrganizationsEntity(newUser.getId(), org.getId()));
                     if(i % 2 == 0){
                         usersRolesRepository.save(new UsersRolesEntity(newUser.getId(),"ADMIN"));
