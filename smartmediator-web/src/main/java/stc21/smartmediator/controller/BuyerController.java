@@ -5,20 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import stc21.smartmediator.DTO.HistoryDates;
-import stc21.smartmediator.DTO.HistoryOfOrder;
-import stc21.smartmediator.DTO.Order;
-import stc21.smartmediator.DTO.ParamsOfOrder;
+import stc21.smartmediator.DTO.*;
 import stc21.smartmediator.entity.OrganizationsEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @PreAuthorize("hasAuthority('BUYER')")
 public class BuyerController {
+    BuyerData mybuyerData=null;
 
     @GetMapping("/buyer")
     public String main(Map<String, Object> model) {
@@ -102,23 +97,34 @@ public class BuyerController {
 
 
     @GetMapping("/buyer/data")
-    public String data(Map<String, Object> model) {
-        List<OrganizationsEntity> listOfOrganizations = new ArrayList<>();
-        OrganizationsEntity userEntorganizationsEntity1 = new OrganizationsEntity();
-        OrganizationsEntity userEntorganizationsEntity2 = new OrganizationsEntity();
-        userEntorganizationsEntity1.setFullName("Vasia");
-        userEntorganizationsEntity1.setAddress("Люберцы");
-        userEntorganizationsEntity1.setId(new UUID(1,2));
-        userEntorganizationsEntity2.setId(new UUID(1,2));
-        userEntorganizationsEntity2.setFullName("Ania");
-        userEntorganizationsEntity2.setAddress("Mosckow");
-        listOfOrganizations.add(userEntorganizationsEntity1);
-        listOfOrganizations.add(userEntorganizationsEntity2);
-        model.put("listOfOrganizations",listOfOrganizations);
+    public String data(Model model) {
+        BuyerData buyerData = new BuyerData("Vasilek", "123", Arrays.asList(new String[]{"qwe", "qrwe"}));
+        model.addAttribute("buyerData",buyerData);
         return "buyer/buyerdata";
     }
 
+    @GetMapping("/buyer/saveData")
+    public String saveData(@ModelAttribute("BuyerData") BuyerData buyerData) {
+        System.out.println(buyerData);
+        //Сохранить данные покупателя
+        return "buyer/buyerdata";
+    }
 
+    @GetMapping("/buyer/changePassword")
+    public String changePassword() {
+
+        return "buyer/buyerChangePassword";
+    }
+    @GetMapping("/buyer/savePassword")
+    public String saveData(@ModelAttribute("Password") Password password) {
+
+        if (password.getPassword().equals(password.getPasswordRepeat())){
+            //Сохранить пароль
+            return "redirect:/buyer/data";
+        } else {
+            return "buyer/buyerChangePassword";
+        }
+    }
 
 
 }
