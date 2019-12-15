@@ -15,14 +15,14 @@
 
                 <h2>История заказов</h2>
 
-                <form th:action="@{/historyOfOrders}" method="post" >
+                <form th:action="@{/buyer/historyOfOrders}" method="get" >
                     <div class="form-group">
                         <label for="usr">С даты</label>
-                        <input type="date" class="form-control" id="usr">
+                        <input th:name="dateFrom" type="date" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="pwd">По дату</label>
-                        <input type="date" class="form-control" id="pwd">
+                        <input th:name="dateTo" type="date" class="form-control" id="pwd">
                     </div>
                     <button type="submit">Поиск заказов</button>
                 </form>
@@ -39,21 +39,14 @@
                     </tr>
                     </thead>
                     <tbody id="myTable">
-                    <tr >
-                        <td>123</td>
-                        <td>Ромашка</td>
-                        <td >Люберцы</td>
-                        <td id="date1" type="date">24.11.2017</td>
-                        <td>5000</td>
-                        <td>Получен</td>
-                    </tr>
-                    <tr >
-                        <td>143</td>
-                        <td>Василек</td>
-                        <td >Москва</td>
-                        <td id="date2" type="date">24.11.2017</td>
-                        <td>3000</td>
-                        <td>В работе</td>
+
+                    <tr th:each="order: ${listOfOrdersHistory}">
+                        <td th:text="${order.getNumberOfOrder()}"/>
+                        <td th:text="${order.getSeller()}"/>
+                        <td th:text="${order.getAddress()}"/>
+                        <td th:text="${order.getDate()}"/>
+                        <td th:text="${order.getSum()}"/>
+                        <td th:text="${order.getStatus()}"/>
                     </tr>
                     </tbody>
                 </table>

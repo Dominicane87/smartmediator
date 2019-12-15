@@ -14,24 +14,25 @@
 
 
                 <h2>Заявки</h2>
+                <form th:action="@{/buyer/sendRequest}" method="get">
                 <div class="inline">
-                    <select>
+                    <select th:name="seller">
                         <option disabled selected>Поставщик</option>
                         <option value="Бахетле">Бахетле</option>
                         <option value="Магнит">Магнит</option>
                     </select>
-                    <select>
+                    <select th:name="address">
                         <option disabled selected>Адрес доставки</option>
                         <option value="Бахетле">Бахетле</option>
                         <option value="Магнит">Магнит</option>
                     </select>
                     <br>
-                    <form th:action="@{/sendRequest}" method="get">
-                        <button type="button">Отправить заявку</button>
-                    </form>
+                    <br>
+                        <button type="submit">Отправить заявку</button>
+                    <br>
                     <br>
                 </div>
-
+            </form>
 
                 <h2>Действующие поставщики</h2>
                 <table class="table table-bordered table-striped">

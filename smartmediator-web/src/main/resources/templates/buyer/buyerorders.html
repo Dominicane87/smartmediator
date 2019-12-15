@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <html xmlns:th="http://www.thymeleaf.org">
@@ -15,58 +14,49 @@
 
 
                 <h2>Заказы</h2>
-                <div class="inline">
-                    <select>
-                        <option disabled selected>Поставщик</option>
-                        <option value="Бахетле">Бахетле</option>
-                        <option value="Магнит">Магнит</option>
-                    </select>
-                    <select>
-                        <option disabled selected>Адрес доставки</option>
-                        <option value="Бахетле">Бахетле</option>
-                        <option value="Магнит">Магнит</option>
-                    </select>
-                    <input type="date">
-<br>
-                    <form th:action="@{/takeDataOfOrder}" method="get" >
-                        <button type="button">Выбрать</button>
-                    </form>
-                    <br>
-                </div>
-
-
-                <h2>Действующие поставщики</h2>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>Товар</th>
-                        <th>Цена</th>
-                        <th>Количество</th>
-                        <th>Максимальное количество</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr >
-                        <th>Трава</th>
-                        <th>150</th>
-                        <th><input type="number" min="0"></th>
-                        <th >5</th>
-                    </tr>
-                    <tr >
-                        <th>Трава</th>
-                        <th>150</th>
-                        <th><input type="number" min="0"></th>
-                        <th>5</th>
-                    </tr>
-                    </tbody>
-                </table>
+                <form th:action="@{/buyer/takeDataOfOrder}" method="get">
+                    <div class="inline">
+                        <select th:name="seller">
+                            <option disabled selected>Поставщик</option>
+                            <option value="Бахетле">Бахетле</option>
+                            <option value="Магнит">Магнит</option>
+                        </select>
+                        <select th:name="address">
+                            <option disabled selected>Адрес доставки</option>
+                            <option value="Бахетле">Бахетле</option>
+                            <option value="Магнит">Магнит</option>
+                        </select>
+                        <input th:name="date" type="date">
+                        <br>
+                        <button type="submit">Выбрать</button>
+                <br>
             </div>
+            </form>
 
-        </main>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Максимальное количество</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order: ${listOfOrders}">
+                    <td th:text="${order.getName()}"/>
+                    <td th:text="${order.getPrice()}"/>
+                    <td th:text="${order.getAmount()}"/>
+                    <td th:text="${order.getMaxAmount()}"/>
+                </tr>
+                </tbody>
+            </table>
     </div>
+
+    </main>
+</div>
 </div>
 <footer th:replace="admin/fragments/footer :: footer"></footer>
-
 
 
 </body>
