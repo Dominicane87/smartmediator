@@ -125,7 +125,7 @@ public class BuyerController {
 
     @GetMapping("/buyer/data")
     public String data(Model model) {
-        BuyerData buyerData = new BuyerData("Vasilek", "123", Arrays.asList(new String[]{"qwe", "qrwe"}));
+        BuyerData buyerData = new BuyerData("Vasilek", "123", new String[]{"dsf", "dsf"});
         model.addAttribute("buyerData",buyerData);
         return "buyer/buyerdata";
     }

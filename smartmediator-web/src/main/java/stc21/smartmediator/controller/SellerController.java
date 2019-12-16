@@ -6,10 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import stc21.smartmediator.DTO.HistoryDates;
-import stc21.smartmediator.DTO.HistoryOfOrder;
-import stc21.smartmediator.DTO.Product;
-import stc21.smartmediator.DTO.SellerOrder;
+import stc21.smartmediator.DTO.*;
 import stc21.smartmediator.entity.OrganizationsEntity;
 
 import java.util.*;
@@ -77,22 +74,18 @@ public class SellerController {
     }
 
     @GetMapping("/seller/data")
-    public String data(Map<String, Object> model) {
-        List<OrganizationsEntity> listOfOrganizations = new ArrayList<>();
-        OrganizationsEntity userEntorganizationsEntity1 = new OrganizationsEntity();
-        OrganizationsEntity userEntorganizationsEntity2 = new OrganizationsEntity();
-        userEntorganizationsEntity1.setFullName("Vasia");
-        userEntorganizationsEntity1.setAddress("Люберцы");
-        userEntorganizationsEntity1.setId(new UUID(1,2));
-        userEntorganizationsEntity2.setId(new UUID(1,2));
-        userEntorganizationsEntity2.setFullName("Ania");
-        userEntorganizationsEntity2.setAddress("Mosckow");
-        listOfOrganizations.add(userEntorganizationsEntity1);
-        listOfOrganizations.add(userEntorganizationsEntity2);
-        model.put("listOfOrganizations",listOfOrganizations);
+    public String data(Model model) {
+        BuyerData buyerData = new BuyerData("Vasya", "123", new String[]{"dsf", "dsf"});
+        //ПОлучить данные пользователя
+        model.addAttribute("buyerData",buyerData);
         return "seller/sellerdata";
     }
-
+    @GetMapping("/buyer/saveDataUser")
+    public String saveData(@ModelAttribute("buyerData") BuyerData buyerData) {
+        System.out.println(buyerData);
+        //Сохранить данные
+        return "redirect:/seller/data";
+    }
 
 
 

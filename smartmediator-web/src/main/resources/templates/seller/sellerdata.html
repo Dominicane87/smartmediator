@@ -11,7 +11,7 @@
         <nav th:replace="seller/fragments/navleft :: nav"></nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <form th:action="@{/saveDataUser}" method="post" >
+            <form th:action="@{/buyer/saveDataUser}" method="get" >
                 <div class="container">
                     <table id="MyTable" class="table">
                         <thead>
@@ -22,15 +22,16 @@
                         <tbody>
                         <tr>
                             <td>Название организации</td>
-                            <td><input th:name="organisation" type="text" placeholder="Заполнить поле"></td>
+                            <td><input th:name="nameOfOrganisation" type="text" th:value="${buyerData.getNameOfOrganisation()}"></td>
                         </tr>
                         <tr>
                             <td>ИНН</td>
-                            <td><input th:name="inn"  type="text" placeholder="Заполнить поле"></td>
+                            <td><input th:name="inn"  type="text" th:value="${buyerData.getInn()}"></td>
                         </tr>
-                        <tr>
+
+                        <tr th:each="address: ${buyerData.getAddress()}">
                             <td>Адрес доставки</td>
-                            <td><input th:name="address" type="text" placeholder="Заполнить поле"></td>
+                            <td><input th:name="address" type="text" th:value="${address}"></td>
                         </tr>
 
                         </tbody>
@@ -48,7 +49,23 @@
 </div>
 <footer th:replace="admin/fragments/footer :: footer"></footer>
 
+<script type="text/javascript">
+    function addRow(id) {
+        var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+        var row = document.createElement("TR")
+        var td1 = document.createElement("TD")
+        td1.appendChild(document.createTextNode("Адрес доставки"))
+        var td2 = document.createElement("TD")
+        var myInput = document.createElement('input')
+        myInput.name="address"
+        myInput.type = "text"
 
+        td2.appendChild(myInput)
+        row.appendChild(td1);
+        row.appendChild(td2);
+        tbody.appendChild(row);
+    }
+</script>
 
 </body>
 </html>

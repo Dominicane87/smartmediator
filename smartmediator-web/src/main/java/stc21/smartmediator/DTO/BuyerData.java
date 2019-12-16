@@ -5,15 +5,15 @@ import java.util.List;
 public class BuyerData {
     String nameOfOrganisation;
     String inn;
-    List<String> address;
+    String[] address;
 
     public BuyerData() {
     }
 
-    public BuyerData(String nameOfOrganisation, String inn, List<String> address) {
+    public BuyerData(String nameOfOrganisation, String inn, String[] address) {
         this.nameOfOrganisation = nameOfOrganisation;
         this.inn = inn;
-        this.address = address;
+        this.address=address;
     }
 
     public String getNameOfOrganisation() {
@@ -32,11 +32,11 @@ public class BuyerData {
         this.inn = inn;
     }
 
-    public List<String> getAddress() {
+    public String[] getAddress() {
         return address;
     }
 
-    public void setAddress(List<String> address) {
+    public void setAddress(String[] address) {
         this.address = address;
     }
 
