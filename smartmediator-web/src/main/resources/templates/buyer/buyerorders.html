@@ -18,13 +18,13 @@
                     <div class="inline">
                         <select th:name="seller">
                             <option disabled selected>Поставщик</option>
-                            <option value="Бахетле">Бахетле</option>
-                            <option value="Магнит">Магнит</option>
+                            <option th:each="seller : ${sellers.getSellers()}" th:value="${seller}" th:text="${seller}">
+                            </option>
                         </select>
                         <select th:name="address">
                             <option disabled selected>Адрес доставки</option>
-                            <option value="Бахетле">Бахетле</option>
-                            <option value="Магнит">Магнит</option>
+                            <option th:each="address : ${addresses.getAddresses()}" th:value="${address}" th:text="${address}">
+                            </option>
                         </select>
                         <input th:name="date" type="date">
                         <br>

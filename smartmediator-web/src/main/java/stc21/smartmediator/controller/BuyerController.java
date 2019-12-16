@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import stc21.smartmediator.DTO.*;
-import stc21.smartmediator.entity.OrganizationsEntity;
 
 import java.util.*;
 
@@ -22,10 +21,22 @@ public class BuyerController {
     }
 
     @GetMapping("/buyer/orders")
-    public String orders(Map<String, Object> model) {
+    public String orders(Model model) {
         Order grass = new Order("Grass", 3.5, 5, 10);
         List<Order> listOfOrders=new ArrayList<Order>();
-        model.put("listOfOrders",listOfOrders);
+        model.addAttribute("listOfOrders",listOfOrders);
+        //Получить список поставщиков
+        //Получить список адресов
+        ListOfAddress listOfAddress = new ListOfAddress();
+        listOfAddress.getAddresses().add("Moskau");
+        listOfAddress.getAddresses().add("Moskau");
+        ListOfSellers listOfSellers = new ListOfSellers();
+        listOfSellers.getSellers().add("Vasia");
+        listOfSellers.getSellers().add("Vova");
+        model.addAttribute("addresses", listOfAddress);
+        model.addAttribute("sellers", listOfSellers);
+
+
         return "buyer/buyerorders";
     }
 
@@ -49,8 +60,24 @@ public class BuyerController {
 
 
     @GetMapping("/buyer/requests")
-    public String requests(Map<String, Object> model) {
-        //ДОбавить список по фильтрам
+    public String requests(Model model) {
+        ListOfAddress listOfAddress = new ListOfAddress();
+        listOfAddress.getAddresses().add("Moskau");
+        listOfAddress.getAddresses().add("Moskau");
+        ListOfSellers listOfSellers = new ListOfSellers();
+        listOfSellers.getSellers().add("Vasia");
+        listOfSellers.getSellers().add("Vova");
+        model.addAttribute("addresses", listOfAddress);
+        model.addAttribute("sellers", listOfSellers);
+        //Получить список поставщиков для фильтра
+        //Получить список адресов
+        //Получить список действующих поставщиков
+        ListOfSellers actualListOfSellers = new ListOfSellers();
+        actualListOfSellers.getSellers().add("Vasia");
+        actualListOfSellers.getSellers().add("Vova");
+        actualListOfSellers.getSellers().add("Maks");
+
+        model.addAttribute("actualSellers",actualListOfSellers);
         return "buyer/buyerrequests";
     }
 
