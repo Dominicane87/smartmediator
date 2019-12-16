@@ -12,17 +12,18 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="container">
-                <form th:action="@{/listOfOrders}" method="post" >
+                <form th:action="@{/seller/listOfOrders}" method="get" >
                     <div class="form-group">
                         <label for="usr">С даты</label>
-                        <input type="date" class="form-control" id="usr">
+                        <input th:name="dateFrom" type="date" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
                         <label for="pwd">По дату</label>
-                        <input type="date" class="form-control" id="pwd">
+                        <input th:name="dateTo" type="date" class="form-control" id="pwd">
                     </div>
                     <button type="submit">Поиск заказов</button>
                 </form>
+
                 <h2>Заказы</h2>
                 <table class="table">
                     <thead>
@@ -36,22 +37,16 @@
                     </tr>
                     </thead>
                     <tbody id="myTable">
-                    <tr >
-                        <td>123</td>
-                        <td>Ромашка</td>
-                        <td >Люберцы</td>
-                        <td id="date1" type="date">24.11.2017</td>
-                        <td>5000</td>
-                        <td>Получен</td>
+
+                    <tr th:each="order: ${sellerOrders}">
+                        <td th:text="${order.getNumberOfOrder()}"/>
+                        <td th:text="${order.getDate()}"/>
+                        <td th:text="${order.getBuyer()}"/>
+                        <td th:text="${order.getAddress()}"/>
+                        <td th:text="${order.getSum()}"/>
+                        <td th:text="${order.getStatus()}"/>
                     </tr>
-                    <tr >
-                        <td>143</td>
-                        <td>Василек</td>
-                        <td >Москва</td>
-                        <td id="date2" type="date">24.11.2017</td>
-                        <td>3000</td>
-                        <td>В работе</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>

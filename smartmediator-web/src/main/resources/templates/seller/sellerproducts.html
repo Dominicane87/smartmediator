@@ -20,28 +20,21 @@
                 <div class="container">
                     <table class="table">
                         <thead>
-                        <tr>
+
+                        <tr th:each="order: ${listOfOrders}">
+                            <td th:text="${order.getName()}"/>
+
+                        <tr >
                             <td>Товар</td>
-                            <td>Магнит</td>
-                            <td>Бахетле</td>
-                            <td>Розница</td>
+                            <td th:each="type: ${products.get(0).getType()}" th:text="${type}"></td>
                             <td>Остаток</td>
                         </tr>
                         </thead>
                         <tbody id="myTable">
-                        <tr >
-                            <td>Травка</td>
-                            <td>100</td>
-                            <td> 150</td>
-                            <td>200</td>
-                            <td>три куста</td>
-                        </tr>
-                        <tr >
-                            <td>Водка</td>
-                            <td>290</td>
-                            <td >350</td>
-                            <td>550</td>
-                            <td>ящик</td>
+                        <tr th:each="product: ${products}">
+                            <td th:text="${product.getName()}"></td>
+                            <td th:each="price: ${product.getPrice()}" th:text="${price}"></td>
+                            <td th:text="${product.getAmount()}"></td>
                         </tr>
                         </tbody>
                     </table>
