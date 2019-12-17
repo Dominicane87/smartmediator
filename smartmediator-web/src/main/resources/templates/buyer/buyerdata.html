@@ -11,8 +11,9 @@
         <nav th:replace="buyer/fragments/navleft :: nav"></nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <form th:action="@{/buyer/saveDataUser}" method="get" >
-                <div class="container">
+            <div class="container">
+                <form th:action="@{/buyer/saveDataUser}" method="get" >
+
                     <table id="MyTable" class="table">
                         <thead>
                         <tr>
@@ -36,14 +37,14 @@
 
                         </tbody>
                     </table>
-                    <form th:action="@{/changePassword}" method="post" >
-                        <button type="submit">Сменить пароль</button>
-                    </form>
                     <button type="button" onclick="addRow('MyTable')">Добавить адрес</button>
                     <button type="submit">Сохранить</button>
-                </div>
-            </form>
 
+                </form>
+                <form th:action="@{/buyer/changePassword}" method="get" >
+                    <button type="submit">Сменить пароль</button>
+                </form>
+            </div>
         </main>
     </div>
 </div>
