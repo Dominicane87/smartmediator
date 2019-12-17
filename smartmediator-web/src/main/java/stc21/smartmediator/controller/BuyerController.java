@@ -20,16 +20,22 @@ public class BuyerController {
     }
 
     @GetMapping("/buyer/orders")
-    public String orders(Model model,
-                         @RequestParam(value = "location", required = false) String location) {
+    public String orders(Model model, @ModelAttribute("ParamsOfOrder") ParamsOfOrder paramsOfOrder,
+                         @ModelAttribute ListOfOrders listOfOrdersv,
+                          @RequestParam(required = false) String yes) {
         //Получить список заказов
         Order grass = new Order("Grass", 3.5, 5, 10);
         ListOfOrders listOfOrders=new ListOfOrders();
-        listOfOrders.getOrders().add(grass);
-
-        if (!model.asMap().containsKey("listOfOrders")) {
-            model.addAttribute("listOfOrders", listOfOrders);
+        if (yes!=null){
+            //отправить запрос с заказом listOfOrdersv
+            listOfOrders=listOfOrdersv;
+        }else if ((paramsOfOrder.getDate()!=null)&&(paramsOfOrder.getAddress()!=null)&&(paramsOfOrder.getSeller()!=null)){
+            listOfOrders.getOrders().add(grass);
+            listOfOrders.getOrders().add(grass);
+        }else {
+            listOfOrders.getOrders().add(grass);
         }
+
         //Получить список поставщиков
         //Получить список адресов
         ListOfAddress listOfAddress = new ListOfAddress();
@@ -40,21 +46,9 @@ public class BuyerController {
         listOfSellers.getSellers().add("Vova");
         model.addAttribute("addresses", listOfAddress);
         model.addAttribute("sellers", listOfSellers);
-        return "buyer/buyerorders";
-    }
-
-    @GetMapping("/buyer/takeDataOfOrder")
-    public String renewOrders(@ModelAttribute("ParamsOfOrder") ParamsOfOrder paramsOfOrder, Model model) {
-        System.out.println(paramsOfOrder.getSeller()+" "+paramsOfOrder.getAddress()+" "+paramsOfOrder.getDate());
-        //Получить список заказов
-        Order grass = new Order("Grass", 3.5, 5, 10);
-        ListOfOrders listOfOrders=new ListOfOrders();
-        listOfOrders.getOrders().add(grass);
-        listOfOrders.getOrders().add(grass);
-        listOfOrders.getOrders().add(grass);
 
         model.addAttribute("listOfOrders",listOfOrders);
-        return "redirect:/buyer/orders";
+        return "buyer/buyerorders";
     }
 
     @GetMapping("/buyer/makeOrder")
