@@ -10,28 +10,48 @@
         <nav th:replace="admin/fragments/navleft :: nav"></nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
             <div class="container">
+                <form th:action="@{/admin/listOfOrders}" method="get" >
+                    <div class="form-group">
+                        <label for="usr">С даты</label>
+                        <input th:name="dateFrom" type="date" class="form-control" id="usr">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">По дату</label>
+                        <input th:name="dateTo" type="date" class="form-control" id="pwd">
+                    </div>
+                    <button type="submit">Поиск заказов</button>
+                </form>
                 <br>
                 <input class="form-control" id="myInput" type="text" placeholder="Поиск по организации..">
                 <br>
+                <h2>Заказы</h2>
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Название организации</th>
-                        <th>Адрес организации</th>
-
+                        <td>№ Заказа</td>
+                        <td>Время заказа</td>
+                        <td>Заказчик</td>
+                        <td>Адрес заказа</td>
+                        <td>Сумма заказа</td>
+                        <td>Статус</td>
                     </tr>
                     </thead>
                     <tbody id="myTable">
-                    <tr th:each="organization: ${listOfOrganizations}">
-                        <td th:text="${organization.getFullName()}"/>
-                        <td th:text="${organization.getAddress()}"/>
+
+                    <tr th:each="order: ${sellerOrders}">
+                        <td th:text="${order.getNumberOfOrder()}"/>
+                        <td th:text="${order.getDate()}"/>
+                        <td th:text="${order.getBuyer()}"/>
+                        <td th:text="${order.getAddress()}"/>
+                        <td th:text="${order.getSum()}"/>
+                        <td th:text="${order.getStatus()}"/>
                     </tr>
 
                     </tbody>
                 </table>
             </div>
+
         </main>
     </div>
 </div>
@@ -45,7 +65,6 @@
             });
         });
     });
-
 
 </script>
 </body>

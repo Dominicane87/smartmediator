@@ -80,7 +80,7 @@ public class SellerController {
         model.addAttribute("buyerData",buyerData);
         return "seller/sellerdata";
     }
-    @GetMapping("/buyer/saveDataUser")
+    @GetMapping("/seller/saveDataUser")
     public String saveData(@ModelAttribute("buyerData") BuyerData buyerData) {
         System.out.println(buyerData);
         //Сохранить данные
