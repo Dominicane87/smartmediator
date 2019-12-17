@@ -23,38 +23,44 @@
                         </select>
                         <select th:name="address">
                             <option disabled selected>Адрес доставки</option>
-                            <option th:each="address : ${addresses.getAddresses()}" th:value="${address}" th:text="${address}">
+                            <option th:each="address : ${addresses.getAddresses()}" th:value="${address}"
+                                    th:text="${address}">
                             </option>
                         </select>
                         <input th:name="date" type="date">
                         <br>
                         <button type="submit">Выбрать</button>
+                        <br>
+                    </div>
+                </form>
                 <br>
+                <form th:action="@{/buyer/makeOrder}" method="get">
+                    <button type="submit">Отправить заказ</button>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Максимальное количество</th>
+                        </tr>
+                        </thead>
+
+
+                        <tbody>
+                        <tr th:each="order: ${listOfOrders.getOrders()}">
+                            <td th:name="name" th:text="${order.getName()}"/>
+                            <td th:name="price" th:text="${order.getPrice()}"/>
+                            <td><input th:name="amount" th:value="${order.getAmount()}"></td>
+                            <td th:name="maxAmount" th:text="${order.getMaxAmount()}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
             </div>
-            </form>
 
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>Товар</th>
-                    <th>Цена</th>
-                    <th>Количество</th>
-                    <th>Максимальное количество</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="order: ${listOfOrders}">
-                    <td th:text="${order.getName()}"/>
-                    <td th:text="${order.getPrice()}"/>
-                    <td th:text="${order.getAmount()}"/>
-                    <td th:text="${order.getMaxAmount()}"/>
-                </tr>
-                </tbody>
-            </table>
+        </main>
     </div>
-
-    </main>
-</div>
 </div>
 <footer th:replace="admin/fragments/footer :: footer"></footer>
 

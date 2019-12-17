@@ -3,8 +3,7 @@ package stc21.smartmediator.controller;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 import stc21.smartmediator.DTO.*;
 
 import java.util.*;
@@ -21,10 +20,16 @@ public class BuyerController {
     }
 
     @GetMapping("/buyer/orders")
-    public String orders(Model model) {
+    public String orders(Model model,
+                         @RequestParam(value = "location", required = false) String location) {
+        //Получить список заказов
         Order grass = new Order("Grass", 3.5, 5, 10);
-        List<Order> listOfOrders=new ArrayList<Order>();
-        model.addAttribute("listOfOrders",listOfOrders);
+        ListOfOrders listOfOrders=new ListOfOrders();
+        listOfOrders.getOrders().add(grass);
+
+        if (!model.asMap().containsKey("listOfOrders")) {
+            model.addAttribute("listOfOrders", listOfOrders);
+        }
         //Получить список поставщиков
         //Получить список адресов
         ListOfAddress listOfAddress = new ListOfAddress();
@@ -35,25 +40,28 @@ public class BuyerController {
         listOfSellers.getSellers().add("Vova");
         model.addAttribute("addresses", listOfAddress);
         model.addAttribute("sellers", listOfSellers);
-
-
         return "buyer/buyerorders";
     }
 
     @GetMapping("/buyer/takeDataOfOrder")
     public String renewOrders(@ModelAttribute("ParamsOfOrder") ParamsOfOrder paramsOfOrder, Model model) {
-        Order grass = new Order("Grass", 3.5, 5, 10);
-        List<Order> listOfOrders=new ArrayList<Order>(){{
-            add(grass);
-            add(grass);
-            add(grass);
-        }};
-
         System.out.println(paramsOfOrder.getSeller()+" "+paramsOfOrder.getAddress()+" "+paramsOfOrder.getDate());
         //Получить список заказов
-//ДОбавить список по фильтрам
+        Order grass = new Order("Grass", 3.5, 5, 10);
+        ListOfOrders listOfOrders=new ListOfOrders();
+        listOfOrders.getOrders().add(grass);
+        listOfOrders.getOrders().add(grass);
+        listOfOrders.getOrders().add(grass);
+
         model.addAttribute("listOfOrders",listOfOrders);
-        return "buyer/buyerorders";
+        return "redirect:/buyer/orders";
+    }
+
+    @GetMapping("/buyer/makeOrder")
+    public String makeOrder(@ModelAttribute("listOfOrders") ListOfOrders listOfOrders, Model model) {
+        //Отправить заказ
+        model.addAttribute("listOfOrders",listOfOrders);
+        return "redirect:/buyer/orders";
     }
 
 
@@ -125,16 +133,16 @@ public class BuyerController {
 
     @GetMapping("/buyer/data")
     public String data(Model model) {
-        BuyerData buyerData = new BuyerData("Vasilek", "123", new String[]{"dsf", "dsf"});
+        BuyerData buyerData = new BuyerData("Vasya", "123", new String[]{"dsf", "dsf"});
+        //ПОлучить данные пользователя
         model.addAttribute("buyerData",buyerData);
         return "buyer/buyerdata";
     }
-
-    @GetMapping("/buyer/saveData")
-    public String saveData(@ModelAttribute("BuyerData") BuyerData buyerData) {
+    @GetMapping("/buyer/saveDataUser")
+    public String saveData(@ModelAttribute("buyerData") BuyerData buyerData) {
         System.out.println(buyerData);
-        //Сохранить данные покупателя
-        return "buyer/buyerdata";
+        //Сохранить данные
+        return "redirect:/buyer/data";
     }
 
     @GetMapping("/buyer/changePassword")
@@ -152,6 +160,4 @@ public class BuyerController {
             return "buyer/buyerChangePassword";
         }
     }
-
-
 }

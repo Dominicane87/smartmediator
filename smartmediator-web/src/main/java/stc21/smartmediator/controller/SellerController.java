@@ -57,7 +57,7 @@ public class SellerController {
     }
 
     @GetMapping("/seller/buyers")
-    public String buyers(Map<String, Object> model) {
+    public String sellers(Map<String, Object> model) {
         List<OrganizationsEntity> listOfOrganizations = new ArrayList<>();
         OrganizationsEntity userEntorganizationsEntity1 = new OrganizationsEntity();
         OrganizationsEntity userEntorganizationsEntity2 = new OrganizationsEntity();
@@ -85,6 +85,21 @@ public class SellerController {
         System.out.println(buyerData);
         //Сохранить данные
         return "redirect:/seller/data";
+    }
+
+    @GetMapping("/seller/changePassword")
+    public String changePassword() {
+
+        return "seller/sellerChangePassword";
+    }
+    @GetMapping("/seller/savePassword")
+    public String saveData(@ModelAttribute("Password") Password password) {
+        if (password.getPassword().equals(password.getPasswordRepeat())){
+            //Сохранить пароль
+            return "redirect:/seller/data";
+        } else {
+            return "seller/sellerChangePassword";
+        }
     }
 
 

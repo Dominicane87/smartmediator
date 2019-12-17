@@ -1,7 +1,8 @@
+
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="buyer/fragments/head :: head"></head>
+<head th:replace="seller/fragments/head :: head"></head>
 <body>
 <nav th:replace="admin/fragments/navup :: nav"></nav>
 
@@ -10,10 +11,8 @@
         <nav th:replace="buyer/fragments/navleft :: nav"></nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div class="container">
-            <form th:action="@{/buyer/saveData}" method="get">
-
-
+            <form th:action="@{/buyer/saveDataUser}" method="get" >
+                <div class="container">
                     <table id="MyTable" class="table">
                         <thead>
                         <tr>
@@ -23,12 +22,11 @@
                         <tbody>
                         <tr>
                             <td>Название организации</td>
-                            <td><input th:name="organisation" type="text"
-                                       th:value="${buyerData.getNameOfOrganisation()}"></td>
+                            <td><input th:name="nameOfOrganisation" type="text" th:value="${buyerData.getNameOfOrganisation()}"></td>
                         </tr>
                         <tr>
                             <td>ИНН</td>
-                            <td><input th:name="inn" type="text" th:value="${buyerData.getInn()}"></td>
+                            <td><input th:name="inn"  type="text" th:value="${buyerData.getInn()}"></td>
                         </tr>
 
                         <tr th:each="address: ${buyerData.getAddress()}">
@@ -38,22 +36,19 @@
 
                         </tbody>
                     </table>
-
+                    <form th:action="@{/changePassword}" method="post" >
+                        <button type="submit">Сменить пароль</button>
+                    </form>
                     <button type="button" onclick="addRow('MyTable')">Добавить адрес</button>
                     <button type="submit">Сохранить</button>
+                </div>
+            </form>
 
-            </form>
-            <form th:action="@{/buyer/changePassword}" method="get">
-                <button type="submit">Сменить пароль</button>
-            </form>
-            </div>
         </main>
     </div>
 </div>
 <footer th:replace="admin/fragments/footer :: footer"></footer>
 
-
-</body>
 <script type="text/javascript">
     function addRow(id) {
         var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
@@ -62,12 +57,15 @@
         td1.appendChild(document.createTextNode("Адрес доставки"))
         var td2 = document.createElement("TD")
         var myInput = document.createElement('input')
-        myInput.placeholder = "Заполнить поле"
+        myInput.name="address"
         myInput.type = "text"
+
         td2.appendChild(myInput)
         row.appendChild(td1);
         row.appendChild(td2);
         tbody.appendChild(row);
     }
 </script>
+
+</body>
 </html>
